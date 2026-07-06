@@ -200,7 +200,8 @@ var POOLS = [
   {id:'forme',      name:'7 · Forme bilineari / Segnatura', diff:'4', status:'full'},
   {id:'jordan',     name:'8 · Jordan / Triangolarizzabilit&agrave;', diff:'4&ndash;5', status:'full'},
   {id:'simmetrici', name:'9 · Operatori simmetrici / isometrie', diff:'4', status:'full'},
-  {id:'e3',         name:'10 · Geometria E&sup3; (priorit&agrave; bassa)', diff:'2', status:'full'}
+  {id:'e3',         name:'10 · Geometria E&sup3; (priorit&agrave; bassa)', diff:'2', status:'full'},
+  {id:'determinanti', name:'11 · Determinanti (propriet&agrave;)', diff:'2&ndash;3', status:'full'}
 ];
 
 /* =====================================================================
@@ -391,6 +392,69 @@ Q.sottospazi = [
       hint:'Trova prima dim(U&#8745;W): quale vettore generatore &egrave; comune? Poi Grassmann.',
       sol:'<b>3.</b> U&#8745;W=Span((0,1,0,0)) (dim 1). Grassmann: 2+2&minus;1=3.'
     }]
+  },
+
+  { pool:'sottospazi', src:'ex_Fis3 Es. 1 · completamento a base',
+    steps:[{
+      t:'In &#8477;&#8308; i vettori v&#8321;=(1,0,0,0) e v&#8322;=(1,1,0,0) sono indipendenti. Quali vettori della base canonica li completano a una base di &#8477;&#8308;?',
+      opts:[{x:'e&#8323;=(0,0,1,0) ed e&#8324;=(0,0,0,1)',c:true},{x:'e&#8321; ed e&#8322;'},{x:'solo e&#8323;'},{x:'(1,1,1,1) e (0,0,1,1)'}],
+      hint:'v&#8321;,v&#8322; coinvolgono solo le prime due coordinate. Aggiungi i versori delle direzioni MANCANTI.',
+      sol:'<b>e&#8323; ed e&#8324;.</b> {v&#8321;,v&#8322;,e&#8323;,e&#8324;} ha matrice triangolare con un pivot su ogni colonna: rango 4, quindi base. Bastano i versori delle direzioni non ancora generate.'
+    }]
+  },
+
+  { pool:'sottospazi', src:'9luglioconsoluz Es. 8 · dipendenza in &#8477;&#179;',
+    steps:[{
+      t:'In &#8477;&#179; sono dati 4 vettori il cui span ha dimensione 3. Quanti di essi sono necessariamente combinazione lineare degli altri?',
+      opts:[{x:'Almeno 1',c:true},{x:'Esattamente 2'},{x:'Nessuno'},{x:'Tutti e 4'}],
+      hint:'4 vettori in &#8477;&#179; sono sempre dipendenti. Se lo span &egrave; tutto &#8477;&#179; (dim 3), quanti pivot indipendenti bastano?',
+      sol:'<b>Almeno 1.</b> Rango 3 &rArr; esistono 3 vettori indipendenti; il quarto &egrave; loro combinazione. La relazione di dipendenza (una, essendo 4&minus;3=1) esibisce almeno un vettore ridondante.'
+    }]
+  },
+
+  { pool:'sottospazi', src:'1appellosol Es. 1 · matrici con somma di riga = h',
+    steps:[{
+      t:'In M&#8322;(&#8477;) sia W&#8341; = { A : la somma degli elementi di ciascuna riga vale h }. Per quali h &egrave; un sottospazio vettoriale?',
+      opts:[{x:'Solo h=0',c:true},{x:'Per ogni h'},{x:'Solo h=1'},{x:'Per nessun h'}],
+      hint:'Le condizioni "somma riga = h" sono lineari, ma OMOGENEE solo se h=0. La matrice nulla sta in W&#8341; solo per h=0.',
+      sol:'<b>Solo h=0.</b> Per h&ne;0 la matrice nulla non appartiene a W&#8341; (le sue righe sommano 0&ne;h): &egrave; un sottospazio affine, non vettoriale. Per h=0 le condizioni sono lineari omogenee, quindi W&#8320; &egrave; un sottospazio.'
+    }]
+  },
+
+  { pool:'sottospazi', src:'ex_Fis3 Es. 4 · base di U&#8745;W',
+    steps:[{
+      t:'In &#8477;&#179; siano U=Span((1,0,1),(0,1,1)) e W={ (x,y,z) : x=y }. Quanto vale dim(U&#8745;W)?',
+      opts:[{x:'1',c:true},{x:'2'},{x:'0'},{x:'3'}],
+      hint:'Un vettore di U &egrave; a(1,0,1)+b(0,1,1)=(a,b,a+b). Imponi la condizione di W (x=y).',
+      sol:'<b>1.</b> Elemento generico di U: (a,b,a+b). La condizione x=y d&agrave; a=b, quindi (a,a,2a)=a(1,1,2). Perci&ograve; U&#8745;W=Span((1,1,2)), dimensione 1.'
+    }]
+  },
+
+  { pool:'sottospazi', src:'b03 scritto-2020-07-21 Es.2 · equazione matriciale lineare',
+    steps:[{
+      t:'In M&#8323;(&#8477;) l&rsquo;insieme Z = { A : A &minus; 3A<sup>T</sup> = I } &egrave; un sottospazio?',
+      opts:[{x:'&Egrave; un sottospazio AFFINE (non vettoriale): soluzioni di un&rsquo;equazione lineare non omogenea',c:true},{x:'&egrave; un sottospazio vettoriale'},{x:'non &egrave; n&eacute; vettoriale n&eacute; affine'},{x:'&egrave; vuoto'}],
+      hint:'A&#8614;A&minus;3A<sup>T</sup> &egrave; lineare; il termine noto &egrave; I&ne;0. Le soluzioni di L(A)=I con L lineare formano un affine, se non vuoto.',
+      sol:'<b>Sottospazio affine.</b> L(A)=A&minus;3A<sup>T</sup> &egrave; lineare in A; l&rsquo;equazione L(A)=I &egrave; lineare non omogenea, quindi le soluzioni formano un traslato di ker&#8202;L. Non contiene A=0 (darebbe 0&ne;I): non &egrave; un sottospazio vettoriale.'
+    }]
+  },
+
+  { pool:'sottospazi', src:'b03 scritto-2020-07-21 Es.2 · det e traccia insieme',
+    steps:[{
+      t:'In M&#8323;(&#8477;), W = { A : det&#8202;A = 0 e tr&#8202;A = 0 } &egrave; un sottospazio vettoriale?',
+      opts:[{x:'No: la condizione det&#8202;A=0 non &egrave; lineare (non chiusa per somma)',c:true},{x:'S&igrave;: intersezione di due condizioni lineari'},{x:'S&igrave;: contiene la matrice nulla'},{x:'No: perch&eacute; tr&#8202;A=0 non &egrave; lineare'}],
+      hint:'tr&#8202;A=0 &Egrave; lineare, ma det&#8202;A=0 NO. L&rsquo;intersezione con una condizione non lineare resta non lineare.',
+      sol:'<b>No.</b> tr&#8202;A=0 &egrave; lineare, ma det&#8202;A=0 non lo &egrave;: due matrici singolari a traccia nulla possono sommarsi in una invertibile. Basta il controesempio sulla sola parte det. Contenere 0 non &egrave; sufficiente.'
+    }]
+  },
+
+  { pool:'sottospazi', src:'b03 soluzioniesame20180625 Es.3 · prodotto di valutazioni',
+    steps:[{
+      t:'Nello spazio delle funzioni f:&#8477;&rarr;&#8477;, W = { f : f(0)&middot;f(1) = 0 } &egrave; un sottospazio?',
+      opts:[{x:'No: condizione non lineare, non chiusa per somma',c:true},{x:'S&igrave;: contiene la funzione nulla'},{x:'S&igrave;: &egrave; il nucleo di f&#8614;f(0)f(1)'},{x:'No: non contiene 0'}],
+      hint:'f(0)f(1)=0 &egrave; un PRODOTTO di valutazioni: non lineare. Somma una f con f(0)=0 e una g con g(1)=0.',
+      sol:'<b>No.</b> f(x)=x d&agrave; f(0)=0 (f&isin;W) e g(x)=x&minus;1 d&agrave; g(1)=0 (g&isin;W), ma (f+g)(0)=&minus;1, (f+g)(1)=1, prodotto &minus;1&ne;0: f+g&notin;W. Il prodotto di due valutazioni non &egrave; una condizione lineare.'
+    }]
   }
 
 ];
@@ -573,6 +637,87 @@ Q.diag = [
       opts:[{x:'Gli autovettori (le coordinate cambiano)',c:true},{x:'Il polinomio caratteristico'},{x:'Gli autovalori'},{x:'Traccia e determinante'}],
       hint:'Similitudine conserva tutti gli invarianti spettrali; cambia il sistema di coordinate in cui esprimi gli autovettori.',
       sol:'<b>Gli autovettori.</b> Matrici simili condividono polinomio caratteristico, autovalori (con m.a. e m.g.), traccia e determinante. Se A&#8202;v=&lambda;v allora B(P&#8315;&sup1;v)=&lambda;(P&#8315;&sup1;v): l&rsquo;autovettore &egrave; trasformato da P&#8315;&sup1;.'
+    }]
+  },
+
+  { pool:'diag', src:'4appellosol Es. 5 · antisimmetrica 3&times;3',
+    steps:[{
+      t:'Sia A antisimmetrica reale 3&times;3 (A<sup>T</sup>=&minus;A). Cosa si pu&ograve; dire dei suoi autovalori e della diagonalizzabilit&agrave;?',
+      opts:[{x:'det&#8202;A=0; autovalori 0 e &plusmn;&#8202;i&beta;: diag. su &#8450;, non su &#8477;',c:true},{x:'det&#8202;A&ne;0 e diagonalizzabile su &#8477;'},{x:'tutti gli autovalori reali'},{x:'sempre nilpotente'}],
+      hint:'Ordine dispari: det&#8202;A=det&#8202;A<sup>T</sup>=det(&minus;A)=(&minus;1)&#179;det&#8202;A &rArr; det&#8202;A=0. Gli autovalori non nulli di un&rsquo;antisimmetrica reale sono immaginari puri.',
+      sol:'<b>det&#8202;A=0, autovalori 0, &plusmn;i&beta;.</b> det&#8202;A=0 &rArr; 0 &egrave; autovalore; gli altri due sono i&beta; e &minus;i&beta; (coppia coniugata). Distinti su &#8450; &rArr; diagonalizzabile su &#8450;; su &#8477; no, perch&eacute; i&beta; non &egrave; reale (per &beta;&ne;0).'
+    }]
+  },
+
+  { pool:'diag', src:'1appellosol Es. 5 · autovalori di A&#8319;',
+    steps:[{
+      t:'A &egrave; diagonalizzabile con autovalori 2 e &minus;3. Quali sono gli autovalori di A&sup3; e A&sup3; &egrave; diagonalizzabile?',
+      opts:[{x:'8 e &minus;27; s&igrave;, con gli stessi autospazi',c:true},{x:'6 e &minus;9; s&igrave;'},{x:'2 e &minus;3; no'},{x:'8 e 27; s&igrave;'}],
+      hint:'Se Av=&lambda;v allora A&#8319;v=&lambda;&#8319;v: stessi autovettori, autovalori elevati a n.',
+      sol:'<b>8 e &minus;27.</b> Da A=PDP&#8315;&sup1; segue A&sup3;=PD&sup3;P&#8315;&sup1;: gli autospazi restano gli stessi, gli autovalori diventano 2&sup3;=8 e (&minus;3)&sup3;=&minus;27. A&sup3; &egrave; diagonalizzata dalla stessa P.'
+    }]
+  },
+
+  { pool:'diag', src:'27gen12consoluz Es. 9 · operatore derivata seconda',
+    steps:[{
+      t:'Sia T : &#8477;[t]<sub>&le;3</sub>&rarr;&#8477;[t]<sub>&le;3</sub>, T(p)=p&Prime; (derivata seconda). T &egrave; diagonalizzabile?',
+      opts:[{x:'No: unico autovalore 0, m.a.=4 ma m.g.=2',c:true},{x:'S&igrave;: autovalori 0,0,2,6'},{x:'No: T non &egrave; lineare'},{x:'S&igrave;: &egrave; triangolare'}],
+      hint:'La matrice di T nella base {1,t,t&sup2;,t&sup3;} &egrave; triangolare STRETTA (nilpotente): unico autovalore 0. ker&#8202;T sono i polinomi con p&Prime;=0, cio&egrave; grado &le;1.',
+      sol:'<b>No.</b> T &egrave; nilpotente, unico autovalore 0 con m.a.=4. ker&#8202;T={grado &le;1}, dim 2 &rArr; m.g.=2&lt;4. Una nilpotente non nulla non &egrave; mai diagonalizzabile.'
+    }]
+  },
+
+  { pool:'diag', src:'3appellosol Es. 1 · matrice a&#8305;&#11388;=(&minus;1)&#8305;&#8314;&#11388;a',
+    steps:[{
+      t:'Sia A=a&middot;'+M([['1','&minus;1','1'],['&minus;1','1','&minus;1'],['1','&minus;1','1']])+' (a&ne;0), cio&egrave; a&#8305;&#11388;=(&minus;1)&#8305;&#8314;&#11388;&#8202;a. Quali sono gli autovalori e A &egrave; diagonalizzabile?',
+      opts:[{x:'0 (m.a. 2) e 3a (m.a. 1); s&igrave;, diagonalizzabile',c:true},{x:'a,a,a; no'},{x:'0 tripla; no'},{x:'&plusmn;a e 0; s&igrave;'}],
+      hint:'Tutte le righe sono multiple della prima: rk(A)=1 &rArr; 0 &egrave; autovalore con m.g.=2. La traccia d&agrave; la somma degli autovalori.',
+      sol:'<b>0 (doppio) e 3a.</b> rk(A)=1 &rArr; m.g.(0)=3&minus;1=2=m.a.(0). L&rsquo;autovalore non nullo &egrave; tr&#8202;A=3a. m.g.=m.a. per ogni autovalore &rArr; diagonalizzabile (del resto A &egrave; simmetrica).'
+    }]
+  },
+
+  { pool:'diag', src:'b03 straordinario-2018-nov-06 Es.3 · polinomio minimo',
+    steps:[{
+      t:'Un endomorfismo f ha polinomio minimo m(t)=(t&minus;1)&sup2;(t+2). f &egrave; diagonalizzabile?',
+      opts:[{x:'No: il polinomio minimo ha una radice multipla',c:true},{x:'S&igrave;: ha tre radici'},{x:'No: il polinomio caratteristico ha grado 3'},{x:'S&igrave;: le radici sono reali'}],
+      hint:'f &egrave; diagonalizzabile &hArr; il polinomio MINIMO ha tutte radici SEMPLICI (molteplicit&agrave; 1).',
+      sol:'<b>No.</b> Criterio: diagonalizzabile &hArr; polinomio minimo a radici semplici. Qui (t&minus;1)&sup2; ha radice doppia, quindi esiste un blocco di Jordan J&#8322;(1) e f NON &egrave; diagonalizzabile. Radici reali non basta.'
+    }]
+  },
+
+  { pool:'diag', src:'b03 scritto-2020-07-21 Es.3 · det(T&sup3;&minus;Id) via autovalori',
+    steps:[{
+      t:'T:&#8477;&sup3;&rarr;&#8477;&sup3; ha autovalori 3, 0, 0. T&sup3;&minus;Id &egrave; invertibile?',
+      opts:[{x:'S&igrave;: gli autovalori di T&sup3;&minus;Id sono 26,&minus;1,&minus;1, tutti &ne;0',c:true},{x:'No: 0 &egrave; autovalore di T'},{x:'No: det&#8202;T=0'},{x:'S&igrave;: perch&eacute; T &egrave; diagonalizzabile'}],
+      hint:'Gli autovalori di T&sup3;&minus;Id sono &mu;&sup3;&minus;1 al variare degli autovalori &mu; di T. Invertibile &hArr; nessuno &egrave; 0 &hArr; nessun &mu; ha &mu;&sup3;=1.',
+      sol:'<b>S&igrave;.</b> Da &mu;&isin;{3,0,0}: &mu;&sup3;&minus;1&isin;{26,&minus;1,&minus;1}, tutti non nulli, quindi det(T&sup3;&minus;Id)=26&middot;(&minus;1)&middot;(&minus;1)=26&ne;0. Che 0 sia autovalore di T non impedisce nulla, perch&eacute; 0&sup3;&minus;1=&minus;1&ne;0.'
+    }]
+  },
+
+  { pool:'diag', src:'b03 scritto-2017-07-13 Es.5a · t per cui v &egrave; autovettore',
+    steps:[{
+      t:'Per quali t il vettore v=(2,2,1) &egrave; autovettore di M(t)? Come si imposta?',
+      opts:[{x:'Si impone M(t)v = &lambda;v, cio&egrave; M(t)v proporzionale a v (incognite t,&lambda;)',c:true},{x:'Si impone det&#8202;M(t)=0'},{x:'Si impone tr&#8202;M(t)=&lambda;'},{x:'Si calcola il polinomio caratteristico in t'}],
+      hint:'v &egrave; autovettore &hArr; M(t)v &egrave; PARALLELO a v. Basta imporre che M(t)v sia multiplo di v.',
+      sol:'<b>Si impone M(t)v proporzionale a v.</b> Le componenti di M(t)v=&lambda;v danno equazioni nelle due incognite t e &lambda;. Non serve n&eacute; il polinomio caratteristico n&eacute; det=0 (che riguarda l&rsquo;autovalore 0).'
+    }]
+  },
+
+  { pool:'diag', src:'b03 scritto_soluzioni20190205 Es.4iii · potenza A&sup2;&#8304;&sup1;&#8312;',
+    steps:[{
+      t:'A &egrave; diagonalizzabile, A=CDC&#8315;&sup1; con D=diag(1,&minus;1,2). Quanto vale A&sup2;&#8304;&sup1;&#8312;?',
+      opts:[{x:'C&middot;diag(1,1,2&sup2;&#8304;&sup1;&#8312;)&middot;C&#8315;&sup1;',c:true},{x:'C&middot;diag(1,&minus;1,2&sup2;&#8304;&sup1;&#8312;)&middot;C&#8315;&sup1;'},{x:'diag(1,1,2&sup2;&#8304;&sup1;&#8312;)'},{x:'C&middot;diag(2018,&minus;2018,2&middot;2018)&middot;C&#8315;&sup1;'}],
+      hint:'A&#8319;=CD&#8319;C&#8315;&sup1; e D&#8319; eleva ogni elemento diagonale alla n. Attenzione a (&minus;1)&sup2;&#8304;&sup1;&#8312; con esponente pari.',
+      sol:'<b>C&middot;diag(1,1,2&sup2;&#8304;&sup1;&#8312;)&middot;C&#8315;&sup1;.</b> A&#8319;=CD&#8319;C&#8315;&sup1; e D&sup2;&#8304;&sup1;&#8312;=diag(1,(&minus;1)&sup2;&#8304;&sup1;&#8312;,2&sup2;&#8304;&sup1;&#8312;)=diag(1,1,2&sup2;&#8304;&sup1;&#8312;) perch&eacute; 2018 &egrave; pari. Le colonne di C (autovettori) non cambiano.'
+    }]
+  },
+
+  { pool:'diag', src:'b03 scritto-2020-07-01_2 Es.3 · F&sup3;&minus;4F invertibile',
+    steps:[{
+      t:'Un endomorfismo F ha autovalori 0, 1, &minus;1. F&sup3;&minus;4F &egrave; invertibile?',
+      opts:[{x:'No: da &mu;=0 si ottiene 0&sup3;&minus;4&middot;0=0, quindi 0 &egrave; autovalore',c:true},{x:'S&igrave;: gli altri autovalori sono &minus;3 e 3'},{x:'S&igrave;: perch&eacute; F &egrave; diagonalizzabile'},{x:'No: perch&eacute; det&#8202;F=0 sempre'}],
+      hint:'Gli autovalori di F&sup3;&minus;4F sono &mu;&sup3;&minus;4&mu;. Invertibile &hArr; nessuno &egrave; 0 &hArr; nessun &mu; annulla t(t&minus;2)(t+2).',
+      sol:'<b>No.</b> F&sup3;&minus;4F=F(F&sup2;&minus;4I) ha autovalori &mu;&sup3;&minus;4&mu; per &mu;&isin;{0,1,&minus;1}: valgono 0,&minus;3,3. Poich&eacute; 0 compare (da &mu;=0), F&sup3;&minus;4F ha nucleo non banale: NON invertibile.'
     }]
   }
 
@@ -762,6 +907,69 @@ Q.spettrale = [
       hint:'&#8741;v&#8741;=&radic;(2&sup2;+(&minus;1)&sup2;+2&sup2;)=&radic;9.',
       sol:'<b>(2,&minus;1,2)/3.</b> &#8741;v&#8741;=&radic;9=3: il versore &egrave; v/&#8741;v&#8741;. Numeri scelti per dare norma intera.'
     }]
+  },
+
+  { pool:'spettrale', src:'Compito24_06_16 Es. 1 · prodotto scalare non standard',
+    steps:[{
+      t:'Su &#8477;&sup3; si pone &#9001;X,Y&#9002;=x&#8321;y&#8321;+4x&#8322;y&#8322;+2x&#8323;y&#8323;+2x&#8322;y&#8323;+2x&#8323;y&#8322;, con matrice G='+M([['1','0','0'],['0','4','2'],['0','2','2']])+'. &Egrave; un prodotto scalare (definito positivo)?',
+      opts:[{x:'S&igrave;: minori di testa 1, 4, 4 tutti &gt;0',c:true},{x:'No: c&rsquo;&egrave; un termine misto x&#8322;x&#8323;'},{x:'No: det&#8202;G=0'},{x:'S&igrave;, ma &egrave; solo semidefinito'}],
+      hint:'Criterio di Sylvester sui minori di testa di G. Il termine misto d&agrave; a&#8322;&#8323;=a&#8323;&#8322;=2. Calcola D&#8321;=1, D&#8322;, D&#8323;=det&#8202;G.',
+      sol:'<b>S&igrave;.</b> D&#8321;=1&gt;0; D&#8322;=det'+M([['1','0'],['0','4']])+'=4&gt;0; D&#8323;=det&#8202;G=1&middot;(4&middot;2&minus;2&middot;2)=4&gt;0. Tutti positivi &rArr; G definita positiva: &egrave; un prodotto scalare. Il termine misto NON impedisce la definitezza.'
+    }]
+  },
+
+  { pool:'spettrale', src:'Compito29_1_14 Es. 1 · W&#8869; da un generatore',
+    steps:[{
+      t:'In &#8477;&#179; standard sia W=Span((1,1,1)). Da quali equazioni cartesiane &egrave; descritto W<sup>&#8869;</sup> e quanto vale dim&#8202;W<sup>&#8869;</sup>?',
+      opts:[{x:'{ x&#8321;+x&#8322;+x&#8323;=0 }, dim 2',c:true},{x:'{ x&#8321;=x&#8322;=x&#8323; }, dim 1'},{x:'{ x&#8321;+x&#8322;+x&#8323;=0 }, dim 1'},{x:'dim 0'}],
+      hint:'W<sup>&#8869;</sup> = vettori ortogonali al generatore (1,1,1): un&rsquo;unica equazione. dim&#8202;W<sup>&#8869;</sup>=3&minus;dim&#8202;W.',
+      sol:'<b>{ x&#8321;+x&#8322;+x&#8323;=0 }, dim 2.</b> Ortogonalit&agrave; a (1,1,1) d&agrave; la sola equazione x&#8321;+x&#8322;+x&#8323;=0; un generatore &rArr; una equazione &rArr; codim 1, quindi dim&#8202;W<sup>&#8869;</sup>=2.'
+    }]
+  },
+
+  { pool:'spettrale', src:'b03 scritto_soluzioni20190121 Es.4 · prodotto scalare per valutazioni',
+    steps:[{
+      t:'Su &#8477;[x]<sub>&le;2</sub> si pone &#9001;p,q&#9002;=p(0)q(0)+p(1)q(1)+p(2)q(2). &Egrave; definito positivo?',
+      opts:[{x:'S&igrave;: &#9001;p,p&#9002;=0 &rArr; p(0)=p(1)=p(2)=0 &rArr; p=0 (3 radici, grado &le;2)',c:true},{x:'No: &egrave; solo semidefinito'},{x:'S&igrave; solo su &#8450;'},{x:'No: la matrice non &egrave; simmetrica'}],
+      hint:'&#9001;p,p&#9002;=p(0)&sup2;+p(1)&sup2;+p(2)&sup2;&ge;0; &egrave; nullo solo se p si annulla in 3 punti distinti.',
+      sol:'<b>S&igrave;.</b> &Egrave; simmetrico e &#9001;p,p&#9002;=&Sigma;p(x&#8342;)&sup2;&ge;0, nullo &hArr; p(0)=p(1)=p(2)=0. Un polinomio di grado &le;2 con 3 radici distinte &egrave; identicamente nullo: la forma &egrave; non degenere e definita positiva. Servono almeno 3 nodi distinti.'
+    }]
+  },
+
+  { pool:'spettrale', src:'b03 scritto_soluzioni20190121 Es.4 · W&#8869; per prodotto non standard',
+    steps:[{
+      t:'Con &#9001;p,q&#9002;=p(0)q(0)+p(1)q(1)+p(2)q(2), sia U={p : p(0)=0}. Una base di U<sup>&#8869;</sup>?',
+      opts:[{x:'Span((x&minus;1)(x&minus;2))',c:true},{x:'Span(x)'},{x:'Span(1)'},{x:'Span(x,x&sup2;)'}],
+      hint:'q&isin;U<sup>&#8869;</sup> &hArr; &#9001;q,x&#9002;=0 e &#9001;q,x&sup2;&#9002;=0, cio&egrave; q(1)+2q(2)=0 e q(1)+4q(2)=0.',
+      sol:'<b>Span((x&minus;1)(x&minus;2)).</b> Imponendo &#9001;q,x&#9002;=q(1)+2q(2)=0 e &#9001;q,x&sup2;&#9002;=q(1)+4q(2)=0 si ricava q(1)=q(2)=0: q si annulla in 1 e 2, quindi q=c(x&minus;1)(x&minus;2). dim&#8202;U<sup>&#8869;</sup>=1=3&minus;dim&#8202;U.'
+    }]
+  },
+
+  { pool:'spettrale', src:'b03 soluzioniesame20200623 Es.2 · prodotto di Frobenius su M&#8322;',
+    steps:[{
+      t:'Su M&#8322;(&#8477;) si pone &#9001;A,B&#9002;=tr(AB<sup>T</sup>). &Egrave; definito positivo, e quanto vale dim&#8202;N<sup>&#8869;</sup> con N={tr&#8202;A=0}?',
+      opts:[{x:'&#9001;A,A&#9002;=&Sigma;a&#8342;&#8343;&sup2;&ge;0 (Frobenius); dim&#8202;N=3 &rArr; dim&#8202;N<sup>&#8869;</sup>=1',c:true},{x:'non &egrave; definito positivo; dim 2'},{x:'&#9001;A,A&#9002; pu&ograve; essere negativo; dim 0'},{x:'dim&#8202;N<sup>&#8869;</sup>=3'}],
+      hint:'tr(AA<sup>T</sup>)=&Sigma;a&#8342;&#8343;&sup2; &egrave; la somma dei quadrati delle entrate. N={tr&#8202;A=0} &egrave; un iperpiano (dim 3).',
+      sol:'<b>&#9001;A,A&#9002;=&Sigma;a&#8342;&#8343;&sup2;&ge;0, nullo solo se A=0: prodotto di Frobenius, definito positivo.</b> N={tr&#8202;A=0} ha dim 3, quindi N<sup>&#8869;</sup> ha dim 4&minus;3=1, generato dall&rsquo;identit&agrave; I (poich&eacute; &#9001;A,I&#9002;=tr&#8202;A).'
+    }]
+  },
+
+  { pool:'spettrale', src:'b03 soluzioniesame20200713 Es.1 / b01 · base unitaria su &#8450;&sup3;',
+    steps:[{
+      t:'T:&#8450;&sup3;&rarr;&#8450;&sup3; &egrave; autoaggiunto (matrice hermitiana). Per una base unitaria di autovettori in un autospazio di dim 2 si usa:',
+      opts:[{x:'Gram&ndash;Schmidt rispetto al prodotto HERMITIANO, con &#9001;u,v&#9002;=&Sigma;u&#8342;v&#8342;&#773;',c:true},{x:'Gram&ndash;Schmidt euclideo reale'},{x:'la trasposta semplice'},{x:'nessuna ortogonalizzazione'}],
+      hint:'Su &#8450; il prodotto &egrave; hermitiano: coniuga uno dei due fattori. Autospazi di autovalori diversi sono gi&agrave; ortogonali; dentro l&rsquo;autospazio degenere si ortonormalizza.',
+      sol:'<b>Gram&ndash;Schmidt hermitiano.</b> Gli autovalori di un operatore autoaggiunto sono reali e gli autospazi di autovalori distinti sono ortogonali; nell&rsquo;autospazio di dim 2 si applica GS col prodotto &#9001;u,v&#9002;=&Sigma;u&#8342;v&#8342;&#773; e si normalizza (&#8741;v&#8741;&sup2;=&#9001;v,v&#9002;). La matrice degli autovettori risulta unitaria.'
+    }]
+  },
+
+  { pool:'spettrale', src:'b03 soluzioniesame20200713 Es.3 · prodotto hermitiano su &#8450;&#8322;[z]',
+    steps:[{
+      t:'Su &#8450;[z]<sub>&le;2</sub> si pone &#9001;p,q&#9002;=p(0)&#8202;q(0)&#773;+p(1)&#8202;q(1)&#773;+p(i)&#8202;q(i)&#773;. &Egrave; definito positivo?',
+      opts:[{x:'S&igrave;: i nodi 0,1,i sono 3 punti distinti',c:true},{x:'No: i &egrave; immaginario'},{x:'S&igrave; solo per polinomi reali'},{x:'No: non &egrave; hermitiano'}],
+      hint:'&#9001;p,p&#9002;=|p(0)|&sup2;+|p(1)|&sup2;+|p(i)|&sup2;&ge;0; &egrave; nullo &hArr; p si annulla in 0,1,i (3 punti distinti).',
+      sol:'<b>S&igrave;.</b> &Egrave; hermitiano e &#9001;p,p&#9002;=|p(0)|&sup2;+|p(1)|&sup2;+|p(i)|&sup2;&ge;0, nullo solo se p(0)=p(1)=p(i)=0. Un polinomio di grado &le;2 con 3 radici distinte (0,1,i) &egrave; nullo: definito positivo. Che i sia immaginario non conta, bastano nodi distinti.'
+    }]
   }
 
 ];
@@ -927,6 +1135,69 @@ Q.sistemi = [
       hint:'dim soluzioni = 3&minus;rk(A)=1. Non omogeneo &rArr; non passa per l&rsquo;origine.',
       sol:'<b>Retta affine.</b> Intersezione di due piani non paralleli in &#8477;&sup3;: dim 1, traslata dall&rsquo;origine perch&eacute; b&ne;0.'
     }]
+  },
+
+  { pool:'sistemi', src:'2appellosol Es. 3 · coefficienti irrazionali',
+    steps:[{
+      t:'Il sistema { x + &radic;2&#8202;y = 0 } in &#8477;&sup2; ha &#8734;&sup1; soluzioni. Quante di esse hanno ENTRAMBE le componenti razionali?',
+      opts:[{x:'Una sola: (0,0)',c:true},{x:'Infinite'},{x:'Nessuna'},{x:'Esattamente due'}],
+      hint:'Le soluzioni sono (x,y)=t(&minus;&radic;2,1). Perch&eacute; x=&minus;&radic;2&#8202;t sia razionale con y=t razionale?',
+      sol:'<b>Solo (0,0).</b> Soluzioni: (&minus;&radic;2&#8202;t, t). Se t&isin;&#8474;\\{0} allora &minus;&radic;2&#8202;t &egrave; irrazionale: non entrambe razionali. Resta solo t=0. Il coefficiente irrazionale filtra le soluzioni razionali.'
+    }]
+  },
+
+  { pool:'sistemi', src:'Prova 8_2_23sol Es. 2 · vincolo su una coordinata',
+    steps:[{
+      t:'Un sistema compatibile ha soluzione generale (x,y,z)=(1,0,2)+t(&minus;1,1,3). Per quale valore di t la soluzione ha prima coordinata x=0?',
+      opts:[{x:'t=1, dando (0,1,5)',c:true},{x:'t=0, dando (1,0,2)'},{x:'t=&minus;1'},{x:'nessun t'}],
+      hint:'Imponi la condizione x=0 sulla forma parametrica: 1&minus;t=0.',
+      sol:'<b>t=1.</b> x=1&minus;t=0 &rArr; t=1, da cui (x,y,z)=(1,0,2)+1&middot;(&minus;1,1,3)=(0,1,5). Un vincolo su una coordinata seleziona un valore del parametro nella famiglia di soluzioni.'
+    }]
+  },
+
+  { pool:'sistemi', src:'b02 Scritto3 / b03 soluzioniesame20200623 · parametro k&isin;&#8450;',
+    steps:[{
+      t:'Un sistema 3&times;3 a coefficienti in &#8450; ha det della matrice dei coefficienti uguale a k&sup2;+1. Per quali k il sistema NON &egrave; di Cramer?',
+      opts:[{x:'k=&plusmn;i',c:true},{x:'k=&plusmn;1'},{x:'k=0'},{x:'nessun k'}],
+      hint:'Non-Cramer &hArr; det=0. In &#8450; l&rsquo;equazione k&sup2;+1=0 ha due radici.',
+      sol:'<b>k=&plusmn;i.</b> In &#8450;, k&sup2;+1=0 &hArr; k=&plusmn;i (radici assenti in &#8477;). Per k&ne;&plusmn;i il sistema ha soluzione unica; per k=&plusmn;i si studia con Rouch&eacute;&ndash;Capelli.'
+    }]
+  },
+
+  { pool:'sistemi', src:'b03 geomefis24.1.22 Es.1 · teorema di struttura',
+    steps:[{
+      t:'Ax=b &egrave; compatibile e l&rsquo;omogeneo associato Ax=0 ha spazio di soluzioni di dimensione 2. Com&rsquo;&egrave; fatto l&rsquo;insieme delle soluzioni di Ax=b?',
+      opts:[{x:'x&#8320;+W: una soluzione particolare pi&ugrave; lo spazio W (dim 2) dell&rsquo;omogeneo',c:true},{x:'coincide con W'},{x:'&egrave; un sottospazio vettoriale di dim 2'},{x:'&egrave; un unico punto'}],
+      hint:'Le soluzioni di un sistema compatibile formano un sottospazio AFFINE: un traslato del nucleo.',
+      sol:'<b>x&#8320;+W.</b> Una soluzione particolare pi&ugrave; tutte quelle dell&rsquo;omogeneo: sottospazio affine di dimensione 2, non vettoriale se b&ne;0 (non contiene 0). La differenza di due soluzioni sta in W.'
+    }]
+  },
+
+  { pool:'sistemi', src:'b03 soluzioniesame20200713 Es.2 · sistema rettangolare 2&times;3',
+    steps:[{
+      t:'Un sistema di 2 equazioni in 3 incognite ha rk&#8202;A=2 ed &egrave; compatibile. Quante soluzioni ha?',
+      opts:[{x:'&infin;&sup1; (una retta affine)',c:true},{x:'una sola'},{x:'nessuna'},{x:'&infin;&sup2;'}],
+      hint:'dim dello spazio delle soluzioni = numero incognite &minus; rk&#8202;A = 3&minus;2.',
+      sol:'<b>&infin;&sup1;.</b> Compatibile con rk&#8202;A=2 in 3 incognite: le soluzioni formano un sottospazio affine di dimensione 3&minus;2=1, una retta. Il numero di parametri liberi &egrave; n&minus;rk.'
+    }]
+  },
+
+  { pool:'sistemi', src:'b02 esame1 Es.1 · due sistemi omogenei &rarr; U&#8745;W',
+    steps:[{
+      t:'U e W sono gli spazi delle soluzioni di due sistemi omogenei in &#8477;&#8308;. Come si trova U&#8745;W?',
+      opts:[{x:'risolvendo l&rsquo;unico sistema che UNISCE tutte le equazioni dei due',c:true},{x:'sommando le dimensioni'},{x:'intersecando solo le prime equazioni'},{x:'U&#8745;W &egrave; sempre {0}'}],
+      hint:'Un vettore sta in U&#8745;W &hArr; soddisfa TUTTE le equazioni di entrambi i sistemi.',
+      sol:'<b>Si impila un unico sistema con tutte le equazioni</b> di entrambi: le sue soluzioni sono esattamente U&#8745;W. Poi U+W si ottiene per Grassmann o unendo i generatori.'
+    }]
+  },
+
+  { pool:'sistemi', src:'b01 / b02 esame2 Es.2 · teorema dell&rsquo;orlato (rango parametrico)',
+    steps:[{
+      t:'Per determinare il rango di A(k) al variare del parametro k, il teorema dell&rsquo;orlato afferma che rk&#8202;A=r quando:',
+      opts:[{x:'esiste un minore r&times;r non nullo e TUTTI i suoi orlati (r+1)&times;(r+1) sono nulli',c:true},{x:'il determinante di A &egrave; non nullo'},{x:'tutti i minori 2&times;2 sono nulli'},{x:'la traccia vale r'}],
+      hint:'Il teorema dell&rsquo;orlato riduce il calcolo del rango a un minore non nullo di ordine r e ai soli minori che lo &laquo;orlano&raquo;.',
+      sol:'<b>Esiste un minore r&times;r non nullo e tutti i suoi orlati (r+1)&times;(r+1) sono nulli.</b> Per il teorema dell&rsquo;orlato (dei minori orlati) non serve annullare TUTTI i minori di ordine r+1: bastano quelli che bordano un minore fondamentale non nullo. Al variare di k si studia dove questi si annullano, individuando i valori critici in cui il rango cala.'
+    }]
   }
 
 ];
@@ -1091,6 +1362,96 @@ Q.applicazioni = [
       opts:[{x:'la matrice del cambio di base da B a C (non l&rsquo;identit&agrave;)',c:true},{x:'sempre la matrice identit&agrave; I'},{x:'la matrice nulla'},{x:'sempre diagonale'}],
       hint:'La matrice dell&rsquo;identit&agrave; &egrave; I solo se la base in partenza coincide con quella in arrivo.',
       sol:'<b>La matrice di cambio di base.</b> Le sue colonne sono le coordinate dei vettori di B rispetto a C. &Egrave; I solo quando B=C.'
+    }]
+  },
+
+  { pool:'applicazioni', src:'1feb12soluz Es. 6 · T(A)=A+A<sup>T</sup> su M&#8322;',
+    steps:[{
+      t:'Sia T : M&#8322;(&#8477;)&rarr;M&#8322;(&#8477;), T(A)=A+A<sup>T</sup>. Cosa sono ker&#8202;T e im&#8202;T?',
+      opts:[{x:'ker = antisimmetriche (dim 1), im = simmetriche (dim 3)',c:true},{x:'ker = {0}, im = tutto M&#8322;'},{x:'ker = simmetriche, im = antisimmetriche'},{x:'ker = diagonali, im = M&#8322;'}],
+      hint:'T(A)=0 &hArr; A<sup>T</sup>=&minus;A (antisimmetrica). E A+A<sup>T</sup> &egrave; sempre simmetrica: dove vive l&rsquo;immagine?',
+      sol:'<b>ker = antisimmetriche (dim 1), im = simmetriche (dim 3).</b> A+A<sup>T</sup>=0 &hArr; A antisimmetrica. L&rsquo;immagine &egrave; fatta di matrici simmetriche (2A per A simmetrica le copre tutte). 1+3=4=dim&#8202;M&#8322;: teorema del rango verificato.'
+    }]
+  },
+
+  { pool:'applicazioni', src:'9luglioconsoluz Es. 7 · T(A)=A&middot;A<sup>T</sup> (trabocchetto)',
+    steps:[{
+      t:'L&rsquo;operatore T(A)=A&middot;A<sup>T</sup> su M&#8322;(&#8477;) &egrave; lineare?',
+      opts:[{x:'No: T(&lambda;A)=&lambda;&sup2;&#8202;A&middot;A<sup>T</sup>&ne;&lambda;&#8202;T(A)',c:true},{x:'S&igrave;, ed &egrave; anche iniettivo'},{x:'S&igrave;, ma non suriettivo'},{x:'No, ma &egrave; additivo'}],
+      hint:'Prova l&rsquo;omogeneit&agrave;: T(&lambda;A)=(&lambda;A)(&lambda;A)<sup>T</sup>=&lambda;&sup2;&#8202;A&#8202;A<sup>T</sup>. &Egrave; uguale a &lambda;&#8202;T(A)?',
+      sol:'<b>No.</b> T(&lambda;A)=&lambda;&sup2;&#8202;AA<sup>T</sup>&ne;&lambda;&#8202;T(A) (per &lambda;&ne;0,1): la dipendenza quadratica rompe la linearit&agrave;. Nemmeno additivo: (A+B)(A+B)<sup>T</sup>=AA<sup>T</sup>+AB<sup>T</sup>+BA<sup>T</sup>+BB<sup>T</sup>. Non ha senso parlare di ker/im come per una lineare.'
+    }]
+  },
+
+  { pool:'applicazioni', src:'27gen12consoluz Es. 6 · coniugio su M&#8322;(&#8450;)',
+    steps:[{
+      t:'Su M&#8322;(&#8450;) sia T(A)=A&#773; (coniugio entrata per entrata). Rispetto a quale struttura T &egrave; lineare?',
+      opts:[{x:'Lineare come &#8477;-spazio, NON come &#8450;-spazio',c:true},{x:'Lineare come &#8450;-spazio'},{x:'Lineare in entrambi'},{x:'Non lineare in nessuno dei due'}],
+      hint:'Verifica T(&lambda;A)=&lambda;&#773;&#8202;A&#773;. Per &lambda; reale &lambda;&#773;=&lambda;; per &lambda; complesso no.',
+      sol:'<b>&#8477;-lineare, non &#8450;-lineare.</b> T(&lambda;A)=&lambda;&#773;&#8202;A&#773;=&lambda;&#773;&#8202;T(A). Se &lambda;&isin;&#8477; allora &lambda;&#773;=&lambda; e T rispetta lo scalare; se &lambda;=i, T(iA)=&minus;i&#8202;T(A)&ne;i&#8202;T(A). &Egrave; un&rsquo;applicazione antilineare (semilineare).'
+    }]
+  },
+
+  { pool:'applicazioni', src:'3appellosol Es. 2 · T(P)=P(0)+P(1)x+P(2)x&sup2;',
+    steps:[{
+      t:'Sia T : &#8477;[x]<sub>&le;2</sub>&rarr;&#8477;[x]<sub>&le;2</sub>, T(P)=P(0)+P(1)x+P(2)x&sup2;. T &egrave; un isomorfismo?',
+      opts:[{x:'S&igrave;: la matrice &egrave; di Vandermonde nei nodi 0,1,2, rango 3',c:true},{x:'No: non &egrave; lineare'},{x:'No: ha nucleo di dimensione 1'},{x:'S&igrave;, ma solo su &#8450;'}],
+      hint:'T(P)=0 &hArr; P(0)=P(1)=P(2)=0: un polinomio di grado &le;2 con 3 radici distinte &egrave; nullo. Nucleo banale &rArr; ?',
+      sol:'<b>S&igrave;.</b> ker&#8202;T: P si annulla in 0,1,2 (3 radici distinte, grado &le;2) &rArr; P=0. Nucleo {0} &rArr; T iniettiva, e su spazio di dimensione finita anche suriettiva: isomorfismo. La matrice nella base {1,x,x&sup2;} &egrave; di Vandermonde, det&ne;0 perch&eacute; i nodi sono distinti.'
+    }]
+  },
+
+  { pool:'applicazioni', src:'b03 scritto-2017-06-30 Es.5 · proiettore p&sup2;=p',
+    steps:[{
+      t:'Sia p:V&rarr;V lineare con p&sup2;=p (proiettore). Quale decomposizione vale sempre?',
+      opts:[{x:'V = ker&#8202;p &oplus; im&#8202;p',c:true},{x:'V = ker&#8202;p &oplus; ker(p&minus;I) con intersezione non banale'},{x:'im&#8202;p = ker&#8202;p'},{x:'V = im&#8202;p soltanto'}],
+      hint:'Scrivi v = (v&minus;p(v)) + p(v). Verifica che v&minus;p(v)&isin;ker&#8202;p e p(v)&isin;im&#8202;p.',
+      sol:'<b>V=ker&#8202;p &oplus; im&#8202;p.</b> Teorema di decomposizione per proiettori (idempotenti): ogni v=(v&minus;p(v))+p(v), col primo addendo in ker&#8202;p (p(v&minus;p(v))=p(v)&minus;p&sup2;(v)=0) e il secondo in im&#8202;p, e ker&#8202;p&#8745;im&#8202;p={0}. In una base adattata p ha matrice diagonale di 0 e 1.'
+    }]
+  },
+
+  { pool:'applicazioni', src:'b03 scritto-2017-06-30 Es.2 · grafo di f',
+    steps:[{
+      t:'Per f:V&rarr;W, il grafo &#915;={(v,f(v)) : v&isin;V}&sub;V&oplus;W &egrave; un sottospazio se e solo se...',
+      opts:[{x:'f &egrave; lineare',c:true},{x:'f &egrave; iniettiva'},{x:'f &egrave; suriettiva'},{x:'sempre'}],
+      hint:'&#915; sottospazio richiede chiusura per somma e scalari: (v,f(v))+(v&prime;,f(v&prime;))&isin;&#915; forza f(v+v&prime;)=f(v)+f(v&prime;).',
+      sol:'<b>f lineare.</b> Per il criterio di sottospazio (chiusura per combinazioni lineari): &#915; chiuso per somma impone f(v+v&prime;)=f(v)+f(v&prime;), per scalari f(&lambda;v)=&lambda;f(v), e 0&isin;&#915; d&agrave; f(0)=0; cio&egrave; esattamente la definizione di applicazione lineare. Viceversa, se f &egrave; lineare &#915; &egrave; chiaramente un sottospazio.'
+    }]
+  },
+
+  { pool:'applicazioni', src:'b03 scritto-2017-07-13 Es.4 · rango di T(A)=A&middot;M su M&#8325;',
+    steps:[{
+      t:'M&isin;M&#8325;(&#8477;) ha rango 4 e T:A&#8614;A&middot;M su M&#8325;(&#8477;) (dim 25). Quanto vale rk&#8202;T?',
+      opts:[{x:'20',c:true},{x:'25'},{x:'5'},{x:'4'}],
+      hint:'A&middot;M agisce riga per riga: manda ogni riga r in r&middot;M, la cui immagine ha dimensione rk&#8202;M=4; con 5 righe indipendenti rk&#8202;T=5&middot;rk&#8202;M.',
+      sol:'<b>20.</b> Vista M&#8325; come 5 righe di &#8477;&#8309;, T manda ciascuna riga r in r&middot;M, la cui immagine &egrave; lo spazio righe di M (dim rk&#8202;M=4). Per il teorema del rango applicato a T: rk&#8202;T=5&middot;4=20 e dim&#8202;ker&#8202;T=25&minus;20=5.'
+    }]
+  },
+
+  { pool:'applicazioni', src:'b03 scritto-2017-07-13 Es.2 · dimensione del quoziente',
+    steps:[{
+      t:'W&sub;&#8477;&#8309; ha dim 2. Qual &egrave; la dimensione dello spazio quoziente &#8477;&#8309;/W?',
+      opts:[{x:'3',c:true},{x:'2'},{x:'5'},{x:'7'}],
+      hint:'dim(V/W)=dim&#8202;V &minus; dim&#8202;W. Le classi sono i traslati v+W.',
+      sol:'<b>3.</b> Per il teorema sulla dimensione del quoziente, dim(V/W)=dim&#8202;V&minus;dim&#8202;W=5&minus;2=3. Una base di &#8477;&#8309;/W si ottiene completando una base di W a una base di &#8477;&#8309; e prendendo le classi dei 3 vettori aggiunti.'
+    }]
+  },
+
+  { pool:'applicazioni', src:'b03 secondoesosol Q6 · endomorfismo prodotto vettoriale',
+    steps:[{
+      t:'Fissato x&#8320;&ne;0 in &#8477;&sup3;, sia T(x)=x&times;x&#8320; (prodotto vettoriale). Cosa sono ker&#8202;T e im&#8202;T?',
+      opts:[{x:'ker&#8202;T=Span(x&#8320;), im&#8202;T=piano ortogonale a x&#8320;',c:true},{x:'ker&#8202;T={0}, im&#8202;T=&#8477;&sup3;'},{x:'ker&#8202;T=piano ortogonale, im&#8202;T=Span(x&#8320;)'},{x:'T &egrave; iniettivo'}],
+      hint:'x&times;x&#8320;=0 &hArr; x parallelo a x&#8320;. Il prodotto vettoriale &egrave; sempre ortogonale a x&#8320;.',
+      sol:'<b>ker&#8202;T=Span(x&#8320;), im&#8202;T=(x&#8320;)<sup>&#8869;</sup> (dim 2).</b> x&times;x&#8320;=0 &hArr; x&#8741;x&#8320; (annullamento del prodotto vettoriale), e ogni x&times;x&#8320; &egrave; ortogonale a x&#8320;. Il teorema del rango chiude: dim&#8202;ker+dim&#8202;im=1+2=3. T non &egrave; n&eacute; iniettivo n&eacute; suriettivo.'
+    }]
+  },
+
+  { pool:'applicazioni', src:'b01 · decomposizione V=U&oplus;W per polinomi',
+    steps:[{
+      t:'In &#8477;[x]<sub>&le;2</sub> sia U={p : p(0)=0}. Un complemento W con &#8477;[x]<sub>&le;2</sub>=U&oplus;W &egrave;:',
+      opts:[{x:'W=Span(1) (i polinomi costanti)',c:true},{x:'W=Span(x)'},{x:'W=U'},{x:'W=Span(x,x&sup2;)'}],
+      hint:'dim&#8202;U=2 (base x,x&sup2;): serve W di dim 1 con U&#8745;W={0}, cio&egrave; un polinomio con termine noto non nullo.',
+      sol:'<b>W=Span(1).</b> U={p(0)=0}=Span(x,x&sup2;) (dim 2); la costante 1 ha 1(0)=1&ne;0, quindi 1&notin;U e Span(1)&#8745;U={0}. Per il criterio di somma diretta (U&#8745;W={0} e dim&#8202;U+dim&#8202;W=dim&#8202;V), &#8477;[x]<sub>&le;2</sub>=U&oplus;Span(1) con 2+1=3.'
     }]
   }
 
@@ -1270,6 +1631,78 @@ Q.complessi = [
       opts:[{x:'z reale oppure z immaginario puro',c:true},{x:'solo z reale'},{x:'solo z=0'},{x:'per ogni z'}],
       hint:'z&sup2; &egrave; reale &hArr; z&sup2; = coniugato di z&sup2; = z&#773;&sup2;. Riconduciti al luogo gi&agrave; visto.',
       sol:'<b>z reale o immaginario puro.</b> z&sup2;&isin;&#8477; &hArr; z&sup2;=z&#773;&sup2; &hArr; (z+z&#773;)(z&minus;z&#773;)=0 &hArr; Re(z)=0 o Im(z)=0.'
+    }]
+  },
+
+  { pool:'complessi', src:'15febbraiosoluz Es. 1 · radici cubiche dell&rsquo;unit&agrave;',
+    steps:[{
+      t:'Quante e quali soluzioni ha l&rsquo;equazione z&sup3;=1 in &#8450;?',
+      opts:[{x:'Tre: 1, e^(2&pi;i/3), e^(4&pi;i/3)',c:true},{x:'Una sola: z=1'},{x:'Due: 1 e &minus;1'},{x:'Infinite'}],
+      hint:'z&#8319;=c ha esattamente n soluzioni distinte, ai vertici di un poligono regolare sul cerchio |z|=|c|<sup>1/n</sup>.',
+      sol:'<b>Tre radici.</b> z&#8342;=e^(2&pi;i&#8202;k/3), k=0,1,2: 1, &minus;&frac12;+i&radic;3/2, &minus;&frac12;&minus;i&radic;3/2. Vertici di un triangolo equilatero sul cerchio unitario. Una sola &egrave; reale (z=1).'
+    }]
+  },
+
+  { pool:'complessi', src:'1appellosol Es. 2 · radici comuni via MCD',
+    steps:[{
+      t:'Quante soluzioni comuni hanno z&#8310;=1 e z&#8321;&#8320;=1 in &#8450;?',
+      opts:[{x:'2 (le soluzioni di z&sup2;=1)',c:true},{x:'1 (solo z=1)'},{x:'16'},{x:'60'}],
+      hint:'Le radici comuni a z&#8319;=1 e z&#8340;=1 sono le radici di z<sup>d</sup>=1 con d=MCD(n,m). Calcola MCD(6,10).',
+      sol:'<b>2.</b> Le radici n-esime dell&rsquo;unit&agrave; formano un gruppo ciclico; le comuni a z&#8310;=1 e z&#8321;&#8320;=1 sono le radici d-esime con d=MCD(6,10)=2, cio&egrave; z&sup2;=1: {1,&minus;1}.'
+    }]
+  },
+
+  { pool:'complessi', src:'ex_Fis6 Es. 5 · L&#8354; moltiplicazione per z',
+    steps:[{
+      t:'Sia z=a+ib e L&#8354;:&#8450;&rarr;&#8450;, L&#8354;(w)=z&middot;w. Vista &#8450; come &#8477;-spazio con base {1,i}, qual &egrave; la matrice di L&#8354;?',
+      opts:[{x:''+M([['a','&minus;b'],['b','a']]),c:true},{x:''+M([['a','b'],['b','a']])},{x:''+M([['a','0'],['0','b']])},{x:''+M([['a','b'],['&minus;b','a']])}],
+      hint:'Calcola L&#8354;(1)=z=a+bi e L&#8354;(i)=zi=&minus;b+ai. Le colonne sono le coordinate di queste immagini nella base {1,i}.',
+      sol:'A='+M([['a','&minus;b'],['b','a']])+'. L&#8354;(1)=a+bi &rarr; colonna (a,b); L&#8354;(i)=ai&minus;b &rarr; colonna (&minus;b,a). &Egrave; la rappresentazione reale della moltiplicazione complessa: rotazione-dilatazione di modulo |z| e angolo arg(z).'
+    }]
+  },
+
+  { pool:'complessi', src:'b01 · z&#8308;=1 e fattorizzazione',
+    steps:[{
+      t:'Quante e quali sono le soluzioni di z&#8308;=1 in &#8450;?',
+      opts:[{x:'quattro: 1, i, &minus;1, &minus;i',c:true},{x:'due: 1 e &minus;1'},{x:'una: 1'},{x:'quattro: &plusmn;1&plusmn;i'}],
+      hint:'Radici quarte dell&rsquo;unit&agrave;: z&#8308;&minus;1=(z&sup2;&minus;1)(z&sup2;+1)=(z&minus;1)(z+1)(z&minus;i)(z+i).',
+      sol:'<b>1, i, &minus;1, &minus;i.</b> Per la formula delle radici n-esime dell&rsquo;unit&agrave; (De Moivre), z&#8342;=e^{i&#8202;2&pi;k/4}, k=0,1,2,3: vertici di un quadrato sulla circonferenza unitaria. La fattorizzazione (z&sup2;&minus;1)(z&sup2;+1) le esibisce e il teorema fondamentale dell&rsquo;algebra assicura che sono esattamente 4.'
+    }]
+  },
+
+  { pool:'complessi', src:'b01 · z&#8308;=&minus;1 e forma polare',
+    steps:[{
+      t:'Le soluzioni di z&#8308;=&minus;1 in &#8450; hanno modulo:',
+      opts:[{x:'1, con argomenti (&pi;+2k&pi;)/4',c:true},{x:'1, e sono tutte reali'},{x:'&minus;1'},{x:'4'}],
+      hint:'|z&#8308;|=|z|&#8308;=|&minus;1|=1 &rArr; |z|=1. L&rsquo;argomento risolve 4&theta;=&pi;+2k&pi;.',
+      sol:'<b>Modulo 1.</b> Per la formula di De Moivre applicata a &minus;1=e^{i&pi;}: |z|=1 e &theta;=(&pi;+2k&pi;)/4, cio&egrave; &pi;/4, 3&pi;/4, 5&pi;/4, 7&pi;/4. Nessuna &egrave; reale: stanno sulle bisettrici dei quadranti.'
+    }]
+  },
+
+  { pool:'complessi', src:'b03 straordinario-2018-nov-06 Es.1 · radici seste',
+    steps:[{
+      t:'Le 6 radici seste di un numero complesso w&ne;0 sono disposte come:',
+      opts:[{x:'vertici di un esagono regolare centrato nell&rsquo;origine, equispaziati di 60&deg;',c:true},{x:'tutte sull&rsquo;asse reale'},{x:'tre coppie coniugate sull&rsquo;asse immaginario'},{x:'in un unico punto'}],
+      hint:'Le n radici n-esime hanno lo stesso modulo |w|<sup>1/n</sup> e argomenti che differiscono di 2&pi;/n.',
+      sol:'<b>Vertici di un esagono regolare.</b> Per la formula delle radici n-esime (De Moivre): stesso modulo |w|<sup>1/6</sup> e argomenti (arg&#8202;w+2k&pi;)/6, k=0..5, separati di 60&deg;. Per contare quante hanno Re&gt;0 si guarda quali argomenti cadono in (&minus;&pi;/2, &pi;/2).'
+    }]
+  },
+
+  { pool:'complessi', src:'b03 simulaz.nov2012 Q2 · matrici di Pauli',
+    steps:[{
+      t:'Le matrici di Pauli &sigma;&#8321;,&sigma;&#8322;,&sigma;&#8323; in M&#8322;(&#8450;) soddisfano &sigma;&#8342;&sup2;=I e &sigma;&#8321;&sigma;&#8322;=i&sigma;&#8323;. Sono linearmente indipendenti su &#8450;?',
+      opts:[{x:'S&igrave;; con I formano una base di M&#8322;(&#8450;)',c:true},{x:'No: &sigma;&#8323;=&sigma;&#8321;&sigma;&#8322;'},{x:'No: sono solo 3 in uno spazio di dim 4'},{x:'S&igrave; ma solo su &#8477;'}],
+      hint:'{I,&sigma;&#8321;,&sigma;&#8322;,&sigma;&#8323;} sono 4 matrici in M&#8322;(&#8450;) (dim 4): le &sigma;&#8342; hanno traccia 0, I no.',
+      sol:'<b>S&igrave;, indipendenti; {I,&sigma;&#8321;,&sigma;&#8322;,&sigma;&#8323;} &egrave; una base di M&#8322;(&#8450;).</b> Per il criterio di indipendenza lineare in dimensione 4: le tre &sigma;&#8342; hanno traccia nulla e I no, e nessuna &sigma; &egrave; combinazione delle altre. La relazione &sigma;&#8321;&sigma;&#8322;=i&sigma;&#8323; &egrave; un PRODOTTO, non una combinazione lineare, quindi non intacca l&rsquo;indipendenza.'
+    }]
+  },
+
+  { pool:'complessi', src:'b01 · endomorfismo f&#8341; su &#8450;&#8322;[t]',
+    steps:[{
+      t:'Su &#8450;[t]<sub>&le;2</sub> sia f&#8341;(p)=&alpha;&#8202;p(0)t&sup2;+p&prime;(t) con &alpha;&ne;0. La matrice in {1,t,t&sup2;} ha polinomio caratteristico &minus;&lambda;&sup3;+2&alpha;. f&#8341; &egrave; diagonalizzabile su &#8450;?',
+      opts:[{x:'S&igrave;: &lambda;&sup3;=2&alpha; ha 3 radici distinte in &#8450;',c:true},{x:'No: unica radice'},{x:'S&igrave; solo se &alpha; &egrave; reale'},{x:'No: la matrice non &egrave; simmetrica'}],
+      hint:'Le radici di &lambda;&sup3;=2&alpha; sono le 3 radici cubiche di 2&alpha;, distinte per &alpha;&ne;0.',
+      sol:'<b>S&igrave;.</b> &lambda;&sup3;=2&alpha; ha 3 radici cubiche distinte in &#8450; (per &alpha;&ne;0), per la formula delle radici n-esime. Con 3 autovalori distinti in dimensione 3, il criterio &laquo;autovalori tutti distinti &rArr; diagonalizzabile&raquo; garantisce la diagonalizzabilit&agrave; su &#8450;.'
     }]
   }
 
@@ -1487,6 +1920,85 @@ Q.forme = [
       ],
       hint:'Matrice '+M([['0','1'],['1','0']])+', det=&minus;1&ne;0 &rArr; non degenere. Sostituisci x&#8321;=u+v, x&#8322;=u&minus;v: 2x&#8321;x&#8322;=2(u&sup2;&minus;v&sup2;).',
       sol:'Non degenere: A='+M([['0','1'],['1','0']])+' ha det=&minus;1. Con x&#8321;=u+v, x&#8322;=u&minus;v si ottiene q=2(u&sup2;&minus;v&sup2;): segnatura (1,1,0). L&rsquo;assenza di quadrati puri NON significa forma nulla n&eacute; degenere.'
+    }]
+  },
+
+  { pool:'forme', src:'Prova 8_2_23sol Es. 3 · segnatura per restrizione',
+    steps:[{
+      t:'Una forma b su &#8477;&#8308; &egrave; definita positiva su Span(e&#8321;,e&#8322;) e definita negativa su Span(e&#8323;,e&#8324;). Cosa si conclude su rango e segnatura, senza altri conti?',
+      opts:[{x:'n&#8330;&ge;2 e n&#8331;&ge;2, quindi rango 4 e segnatura (2,2)',c:true},{x:'segnatura (4,0)'},{x:'segnatura (2,2) ma rango 2'},{x:'nulla, servono gli autovalori'}],
+      hint:'Se b &egrave; def. positiva su un sottospazio di dim 2, allora n&#8330;&ge;2; analogamente def. negativa &rArr; n&#8331;&ge;2. In &#8477;&#8308; vale n&#8330;+n&#8331;+n&#8320;&le;4.',
+      sol:'<b>Rango 4, segnatura (2,2).</b> La restrizione def. positiva su un piano forza n&#8330;&ge;2; quella def. negativa forza n&#8331;&ge;2. Ma n&#8330;+n&#8331;&le;4, quindi n&#8330;=n&#8331;=2 e n&#8320;=0. L&rsquo;argomento di restrizione evita di diagonalizzare.'
+    }]
+  },
+
+  { pool:'forme', src:'geomefis24.1.22 Es. 4 · segnatura parametrica (misto)',
+    steps:[
+      { t:'<span class="lbl">L1</span> Sia q(x)=&alpha;x&#8321;&sup2;+x&#8322;&sup2;+x&#8323;&sup2;+2x&#8321;x&#8322;&minus;4x&#8321;x&#8323;, matrice A&#8341;='+M([['&alpha;','1','&minus;2'],['1','1','0'],['&minus;2','0','1']])+'. Per quale &alpha; la forma &egrave; degenere?',
+        opts:[{x:'&alpha;=5',c:true},{x:'&alpha;=0'},{x:'&alpha;=1'},{x:'nessun &alpha;'}],
+        hint:'Degenere &hArr; det&#8202;A&#8341;=0. Sviluppa il determinante lungo la prima riga.',
+        sol:'det&#8202;A&#8341;=&alpha;(1&middot;1)&minus;1(1&middot;1)&minus;2(&minus;(&minus;2))=&alpha;&minus;1&minus;4=&alpha;&minus;5. Si annulla per &alpha;=5: unico valore critico (r=1).',
+        cont:'Continua &rarr; segnatura per &alpha;&gt;5 e &alpha;&lt;5'
+      },
+      { t:'<span class="lbl">L2</span> Segnatura della stessa q per &alpha;&gt;5 e per &alpha;&lt;5 (con D&#8321;,D&#8322;&gt;0)?',
+        opts:[{x:'&alpha;&gt;5: (3,0,0); &alpha;&lt;5: (2,1,0)',c:true},{x:'&alpha;&gt;5: (2,1,0); &alpha;&lt;5: (3,0,0)'},{x:'sempre (2,1,0)'},{x:'&alpha;&gt;5: (2,0,1); &alpha;&lt;5: (1,2,0)'}],
+        hint:'Minori di testa: D&#8321;=&alpha;, D&#8322;=&alpha;&minus;1, D&#8323;=&alpha;&minus;5. Per &alpha;&gt;5 tutti positivi; scendendo sotto 5 l&rsquo;ultimo cambia segno.',
+        sol:'D&#8321;=&alpha;, D&#8322;=&alpha;&middot;1&minus;1=&alpha;&minus;1, D&#8323;=det&#8202;A&#8341;=&alpha;&minus;5. Per &alpha;&gt;5: +,+,+ &rArr; (3,0,0) def. positiva. Per &alpha;&lt;5 (con D&#8321;,D&#8322;&gt;0): segni +,+,&minus; &rArr; una variazione &rArr; (2,1,0). In &alpha;=5 la forma degenera: (2,0,1). Trovare prima il valore critico rende immediata la discussione.'
+      }
+    ]
+  },
+
+  { pool:'forme', src:'b03 scritto-2017-06-30 Es.4 · max/min di q sulla sfera',
+    steps:[{
+      t:'q:&#8477;&sup3;&rarr;&#8477; ha matrice simmetrica con autovalori &minus;2, 1, 5. Qual &egrave; il massimo di q(x) su &#8741;x&#8741;=1?',
+      opts:[{x:'5 (l&rsquo;autovalore massimo)',c:true},{x:'1'},{x:'&minus;2'},{x:'illimitato'}],
+      hint:'Sul vincolo &#8741;x&#8741;=1, max e min di q=x<sup>T</sup>Ax sono l&rsquo;autovalore MASSIMO e MINIMO di A.',
+      sol:'<b>5.</b> Per il teorema spettrale q si diagonalizza ortogonalmente: q(x)=&lambda;&#8321;y&#8321;&sup2;+&lambda;&#8322;y&#8322;&sup2;+&lambda;&#8323;y&#8323;&sup2; con &Sigma;y&#8342;&sup2;=1. Per il principio di Rayleigh il massimo su &#8741;x&#8741;=1 &egrave; l&rsquo;autovalore pi&ugrave; grande (5), raggiunto sull&rsquo;autovettore, e il minimo il pi&ugrave; piccolo (&minus;2).'
+    }]
+  },
+
+  { pool:'forme', src:'b03 scritto-2017-09-18 Es.3 · diagonalizzare q via polarizzazione',
+    steps:[{
+      t:'Per diagonalizzare una forma quadratica q con una base (non necessariamente ortonormale euclidea), l&rsquo;ortogonalit&agrave; da usare &egrave; rispetto a:',
+      opts:[{x:'la forma bilineare polarizzata g associata a q',c:true},{x:'il prodotto scalare euclideo standard'},{x:'la traccia'},{x:'il determinante'}],
+      hint:'&laquo;Diagonalizzare q&raquo; significa g(v&#8342;,v&#8343;)=0 per i&ne;j, dove g &egrave; la polarizzazione di q. Il prodotto euclideo funziona solo se q &egrave; quello standard.',
+      sol:'<b>La polarizzazione g di q.</b> Per il teorema di Lagrange ogni forma quadratica ammette una base g-ortogonale: scelto v&#8321; non isotropo, si prende v&#8322;&isin;v&#8321;<sup>&#8869;g</sup>, ecc. In tale base la matrice di q &egrave; diagonale (elementi g(v&#8342;,v&#8342;)). &Egrave; diverso da Gram&ndash;Schmidt euclideo, che diagonalizza solo la forma standard.'
+    }]
+  },
+
+  { pool:'forme', src:'b03 scritto Geometria 2024-07-09 Es.3 · segnatura al variare di &alpha;',
+    steps:[{
+      t:'Una forma bilineare simmetrica &phi;&#8341; su &#8477;&sup3; dipende da &alpha; e ha det della matrice pari a &alpha;&minus;2. Per quale &alpha; &egrave; degenere, e come si trova il radicale?',
+      opts:[{x:'&alpha;=2; il radicale &egrave; ker della matrice, cio&egrave; le soluzioni di A(2)x=0',c:true},{x:'&alpha;=0; radicale = &#8477;&sup3;'},{x:'&alpha;=2; radicale = {0}'},{x:'mai degenere'}],
+      hint:'Degenere &hArr; det=0 &hArr; &alpha;=2. Il radicale &egrave; il nucleo della matrice associata per quel valore.',
+      sol:'<b>&alpha;=2.</b> Per il criterio del determinante una forma &egrave; degenere &hArr; det della matrice associata =0, qui &alpha;&minus;2=0. Il radicale (rad&#8202;&phi;={x : A(2)x=0}) si trova risolvendo il sistema omogeneo. Per la legge di inerzia di Sylvester la segnatura resta costante su ciascun intervallo separato dal valore critico &alpha;=2.'
+    }]
+  },
+
+  { pool:'forme', src:'b03 scritto-2018-07-09 Es.4 · &phi;(X)=tr(X<sup>T</sup>DX) su M&#8322;',
+    steps:[{
+      t:'Su M&#8322;(&#8477;) sia &phi;(X)=tr(X<sup>T</sup>DX) con D=diag(&lambda;&#8321;,&lambda;&#8322;). Da cosa dipendono gli indici n<sub>+</sub>, n<sub>&minus;</sub>?',
+      opts:[{x:'dai segni di &lambda;&#8321; e &lambda;&#8322;, ciascuno con molteplicit&agrave; 2',c:true},{x:'solo dal segno del det&#8202;D'},{x:'solo dalla traccia di D'},{x:'sono sempre (4,0)'}],
+      hint:'&phi;(X)=&lambda;&#8321;(x&#8321;&#8321;&sup2;+x&#8322;&#8321;&sup2;)+&lambda;&#8322;(x&#8321;&#8322;&sup2;+x&#8322;&#8322;&sup2;): forma diagonale con &lambda;&#8321; due volte e &lambda;&#8322; due volte.',
+      sol:'<b>Dai segni di &lambda;&#8321;,&lambda;&#8322;, ognuno con molteplicit&agrave; 2.</b> Sviluppando, &phi; &egrave; gi&agrave; diagonale con coefficienti &lambda;&#8321;,&lambda;&#8321;,&lambda;&#8322;,&lambda;&#8322;. Per il teorema di Sylvester (legge di inerzia) gli indici sono invarianti: n<sub>+</sub>=2&middot;#{&lambda;&#8342;&gt;0}, n<sub>&minus;</sub>=2&middot;#{&lambda;&#8342;&lt;0}, n<sub>0</sub>=2&middot;#{&lambda;&#8342;=0}.'
+    }]
+  },
+
+  { pool:'forme', src:'b01 / b02 esame_soluzioni20210712 Es.3 · complemento b-ortogonale non def. positiva',
+    steps:[{
+      t:'Per una forma bilineare simmetrica b INDEFINITA e non degenere su &#8477;&sup3;, e U un sottospazio, vale sempre &#8477;&sup3;=U&oplus;U<sup>&#8869;b</sup>?',
+      opts:[{x:'No: solo se b ristretta a U &egrave; non degenere (U senza vettori isotropi ortogonali a tutto U)',c:true},{x:'S&igrave;, sempre, come per il prodotto euclideo'},{x:'No, mai'},{x:'S&igrave;, se dim&#8202;U=1'}],
+      hint:'Con b indefinita U pu&ograve; contenere vettori isotropi: allora U&#8745;U<sup>&#8869;b</sup>&ne;{0} e la somma non &egrave; diretta. Il caso euclideo (def. positivo) non ha isotropi.',
+      sol:'<b>No in generale.</b> Il teorema di decomposizione ortogonale V=U&oplus;U<sup>&#8869;b</sup> vale se e solo se b|<sub>U</sub> &egrave; non degenere. Con b indefinita ci&ograve; pu&ograve; fallire (U isotropo); per il prodotto euclideo (definito positivo) l&rsquo;ipotesi &egrave; sempre soddisfatta e la somma diretta &egrave; garantita.'
+    }]
+  },
+
+  { pool:'forme', src:'b01 · prodotto scalare integrale su &#8477;[x] e non-degenerazione via Gram',
+    steps:[{
+      t:'Su &#8477;[x]<sub>&le;2</sub> con &#9001;p,q&#9002;=&int;<sub>&minus;1</sub><sup>1</sup>pq&#8202;dx, la forma &egrave; non degenere?',
+      opts:[{x:'S&igrave;: &#9001;p,p&#9002;=&int;p&sup2;&gt;0 per p&ne;0 e la matrice di Gram &egrave; invertibile',c:true},{x:'No: la matrice di Gram &egrave; singolare'},{x:'No: solo semidefinita'},{x:'S&igrave; solo su un sottospazio'}],
+      hint:'Non degenere &hArr; det della matrice di Gram &ne;0. Qui &#9001;p,p&#9002;=&int;<sub>&minus;1</sub><sup>1</sup>p&sup2;dx&ge;0, nullo solo se p&equiv;0.',
+      sol:'<b>S&igrave;, definita positiva.</b> Per il criterio di Gram la forma &egrave; non degenere &hArr; det della matrice di Gram &ne;0. Qui &#9001;p,p&#9002;=&int;<sub>&minus;1</sub><sup>1</sup>p&sup2;dx&ge;0, nullo solo per p&equiv;0 (un polinomio con integrale del quadrato nullo &egrave; nullo): la matrice di Gram nella base {1,x,x&sup2;} &egrave; definita positiva, dunque invertibile.'
     }]
   }
 
@@ -1745,6 +2257,42 @@ Q.jordan = [
       hint:'(A&minus;&lambda;I)v&#8321;=0 dice che v&#8321; &egrave; un autovettore. v&#8322; sta un livello sopra: (A&minus;&lambda;I)&sup2;v&#8322;=0 ma (A&minus;&lambda;I)v&#8322;&ne;0.',
       sol:'v&#8321; &egrave; l&rsquo;autovettore (in ker(A&minus;&lambda;I)); v&#8322; &egrave; autovettore generalizzato di rango 2 (in ker((A&minus;&lambda;I)&sup2;) ma non in ker(A&minus;&lambda;I)). Su questa base A agisce come il blocco '+M([['&lambda;','1'],['0','&lambda;']])+'.'
     }]
+  },
+
+  { pool:'jordan', src:'Compito_23_02_16 Es. 5 · invertibilit&agrave; di kI+C',
+    steps:[{
+      t:'Sia C&isin;M&#8322;(&#8477;) diagonalizzabile con autovalori 1 e &minus;2. Per quali k&isin;&#8477; la matrice kI+C &egrave; invertibile?',
+      opts:[{x:'k&ne;&minus;1 e k&ne;2',c:true},{x:'k&ne;1 e k&ne;&minus;2'},{x:'ogni k'},{x:'solo k=0'}],
+      hint:'Gli autovalori di kI+C sono k+&lambda;<sub>i</sub>. Invertibile &hArr; nessun autovalore nullo, cio&egrave; k+&lambda;<sub>i</sub>&ne;0.',
+      sol:'<b>k&ne;&minus;1 e k&ne;2.</b> Autovalori di kI+C: k+1 e k&minus;2. det(kI+C)=(k+1)(k&minus;2), che si annulla per k=&minus;1 o k=2. Fuori da questi &egrave; invertibile: sommare kI trasla lo spettro di k.'
+    }]
+  },
+
+  { pool:'jordan', src:'Prova 8_2_23sol Es. 5 · al pi&ugrave; un k per la similitudine',
+    steps:[{
+      t:'A(k) dipende linearmente da k e A&prime; &egrave; fissa. Perch&eacute; esiste AL PI&Ugrave; un valore di k per cui A(k) &egrave; simile ad A&prime;?',
+      opts:[{x:'La similitudine impone tr&#8202;A(k)=tr&#8202;A&prime;, equazione lineare non banale in k',c:true},{x:'Perch&eacute; A(k) e A&prime; hanno sempre gli stessi autovalori'},{x:'Perch&eacute; det&#8202;A(k) &egrave; costante'},{x:'La similitudine non dipende da k'}],
+      hint:'Matrici simili hanno la stessa traccia. Se tr&#8202;A(k) &egrave; un polinomio di grado 1 in k, l&rsquo;equazione tr&#8202;A(k)=tr&#8202;A&prime; ha al pi&ugrave; una soluzione.',
+      sol:'<b>La condizione tr&#8202;A(k)=tr&#8202;A&prime;.</b> La traccia &egrave; un invariante di similitudine; se tr&#8202;A(k) &egrave; affine e non costante in k, l&rsquo;uguaglianza fissa un unico k. Quel k va poi VERIFICATO (stessi autovalori e struttura di Jordan): la traccia &egrave; condizione necessaria, non ancora sufficiente.'
+    }]
+  },
+
+  { pool:'jordan', src:'b03 straordinario-2018-nov-06 Es.3 · esponente del polinomio minimo',
+    steps:[{
+      t:'Il polinomio minimo di A &egrave; m(t)=(t&minus;3)&sup2;. Cosa dice sulla taglia dei blocchi di Jordan relativi a &lambda;=3?',
+      opts:[{x:'Il blocco pi&ugrave; GRANDE ha taglia 2 (l&rsquo;esponente nel minimo)',c:true},{x:'Ci sono esattamente 2 blocchi'},{x:'La molteplicit&agrave; algebrica di 3 &egrave; 2'},{x:'A &egrave; diagonalizzabile'}],
+      hint:'L&rsquo;esponente di (t&minus;&lambda;) nel polinomio minimo = taglia del blocco di Jordan PI&Ugrave; GRANDE relativo a &lambda;.',
+      sol:'<b>Il blocco pi&ugrave; grande di &lambda;=3 ha taglia 2.</b> Per il teorema sulla forma di Jordan, l&rsquo;esponente di (t&minus;&lambda;) nel polinomio minimo fissa la dimensione massima dei blocchi relativi a &lambda; &mdash; non il loro numero (che &egrave; la molteplicit&agrave; geometrica) n&eacute; la molteplicit&agrave; algebrica (grado nel caratteristico).'
+    }]
+  },
+
+  { pool:'jordan', src:'b02 Esonero22_01_16 Es.3 · triangolarizzabilit&agrave; su &#8477;',
+    steps:[{
+      t:'Un endomorfismo di &#8477;&sup3; ha polinomio caratteristico p(t)=&minus;t&sup3;+1, con un&rsquo;unica radice reale. &Egrave; triangolarizzabile su &#8477;?',
+      opts:[{x:'No: il caratteristico non si fattorizza in fattori lineari su &#8477; (due radici complesse)',c:true},{x:'S&igrave;: ogni matrice reale lo &egrave;'},{x:'No: perch&eacute; non &egrave; diagonalizzabile'},{x:'S&igrave;: ha una radice reale'}],
+      hint:'Triangolarizzabile su un campo &hArr; il polinomio caratteristico si spezza in fattori lineari SU QUEL campo. &minus;t&sup3;+1 ha 1 radice reale e 2 complesse coniugate.',
+      sol:'<b>No.</b> p(t)=&minus;(t&minus;1)(t&sup2;+t+1): su &#8477; il fattore t&sup2;+t+1 &egrave; irriducibile (radici complesse). Per il teorema di triangolarizzazione un operatore &egrave; triangolarizzabile su K &hArr; il caratteristico si spezza in fattori lineari su K: qui ci&ograve; accade su &#8450; ma non su &#8477;.'
+    }]
   }
 
 ];
@@ -2000,6 +2548,78 @@ Q.simmetrici = [
       hint:'In base ONB, la matrice dell&rsquo;aggiunto T* &egrave; la trasposta della matrice di T. Autoaggiunto &rArr; le due coincidono.',
       sol:'Simmetrica. In una base ortonormale l&rsquo;aggiunto corrisponde alla trasposta; T=T* &rArr; matrice = sua trasposta. In una base NON ortonormale questa equivalenza cade.'
     }]
+  },
+
+  { pool:'simmetrici', src:'4appellosol Es. 6 · operatore antisimmetrico',
+    steps:[{
+      t:'Sia T antisimmetrico su uno spazio euclideo V&#8345; (&#9001;T(v),w&#9002;=&minus;&#9001;v,T(w)&#9002;). Cosa vale per la matrice in base ONB e per gli autovalori?',
+      opts:[{x:'Matrice antisimmetrica; autovalori in i&#8477;&cup;{0}; per n dispari det&#8202;T=0 &rArr; non iniettivo',c:true},{x:'Matrice simmetrica; autovalori reali'},{x:'Sempre invertibile'},{x:'Diagonalizzabile su &#8477;'}],
+      hint:'In base ONB l&rsquo;aggiunto &egrave; la trasposta: T*=&minus;T d&agrave; A<sup>T</sup>=&minus;A. Per n dispari il det di un&rsquo;antisimmetrica &egrave; 0.',
+      sol:'<b>Antisimmetrica, autovalori 0 o &plusmn;i&beta;, non iniettivo per n dispari.</b> In ONB A<sup>T</sup>=&minus;A. Gli autovalori di un&rsquo;antisimmetrica reale sono 0 oppure immaginari puri. Per n dispari det&#8202;A=(&minus;1)&#8319;det&#8202;A=&minus;det&#8202;A &rArr; det=0 &rArr; ker&ne;{0}: T non iniettivo. Non diagonalizzabile su &#8477; se ha autovalori non nulli.'
+    }]
+  },
+
+  { pool:'simmetrici', src:'1appellosol Es. 6 · conservare l&rsquo;ortogonalit&agrave;',
+    steps:[{
+      t:'A "conserva l&rsquo;ortogonalit&agrave;" se &#9001;x,y&#9002;=0 &rArr; &#9001;Ax,Ay&#9002;=0. Tra diag(k,k), diag(k,&minus;k) e diag(k,m) con m&ne;&plusmn;k (tutte con k&ne;0), quali la conservano?',
+      opts:[{x:'diag(k,k) e diag(k,&minus;k) s&igrave;; diag(k,m) generica no',c:true},{x:'Solo diag(k,k)'},{x:'Tutte e tre'},{x:'Nessuna'}],
+      hint:'Conservare l&rsquo;ortogonalit&agrave; &hArr; A<sup>T</sup>A=&lambda;I. Prova con e&#8321;&perp;e&#8322; e con (1,1)&perp;(1,&minus;1). Conservare l&rsquo;ortogonalit&agrave; NON significa essere ortogonale.',
+      sol:'<b>diag(k,k) e diag(k,&minus;k) s&igrave;.</b> diag(k,k)=kI e diag(k,&minus;k) danno A<sup>T</sup>A=k&sup2;I (mappe conformi): angoli retti preservati. diag(k,m) con m&ne;&plusmn;k ha A<sup>T</sup>A=diag(k&sup2;,m&sup2;)&ne;&lambda;I e rompe l&rsquo;ortogonalit&agrave; di (1,1),(1,&minus;1). Conservare l&rsquo;ortogonalit&agrave; &egrave; pi&ugrave; debole che essere ortogonale.'
+    }]
+  },
+
+  { pool:'simmetrici', src:'Compito 02_02_2016 Es. 5 · simmetrico per prodotto non standard',
+    steps:[{
+      t:'Con &#9001;X,Y&#9002;=X<sup>T</sup>S&#8202;Y (S simmetrica def. positiva) e T di matrice A, T &egrave; autoaggiunto se e solo se:',
+      opts:[{x:'A<sup>T</sup>S = S&#8202;A',c:true},{x:'A<sup>T</sup>=A'},{x:'A<sup>T</sup>A=I'},{x:'S<sup>T</sup>=S soltanto'}],
+      hint:'&#9001;T(X),Y&#9002;=(AX)<sup>T</sup>S&#8202;Y=X<sup>T</sup>A<sup>T</sup>S&#8202;Y; &#9001;X,T(Y)&#9002;=X<sup>T</sup>S&#8202;A&#8202;Y. Uguaglia per ogni X,Y.',
+      sol:'<b>A<sup>T</sup>S=SA.</b> &#9001;T(X),Y&#9002;=X<sup>T</sup>(A<sup>T</sup>S)Y e &#9001;X,T(Y)&#9002;=X<sup>T</sup>(SA)Y: uguali &forall;X,Y &hArr; A<sup>T</sup>S=SA. Con S=I si ricade in A<sup>T</sup>=A; con S&ne;I la simmetria della sola A NON basta.'
+    }]
+  },
+
+  { pool:'simmetrici', src:'b03 scritto-2017-09-18 Es.5 · riflessione ortogonale in &#8477;&sup2;',
+    steps:[{
+      t:'Una riflessione ortogonale rispetto a una retta per l&rsquo;origine in &#8477;&sup2; ha matrice A. Cosa vale per A?',
+      opts:[{x:'A ortogonale con det&#8202;A=&minus;1; autovalori +1 (direzione retta) e &minus;1 (normale)',c:true},{x:'A=I, det&#8202;A=+1'},{x:'det&#8202;A=+1 (&egrave; una rotazione)'},{x:'A non &egrave; ortogonale'}],
+      hint:'Una riflessione fissa il direttore della retta (autovalore +1) e inverte la normale (autovalore &minus;1). &Egrave; un&rsquo;isometria con det &minus;1.',
+      sol:'<b>A ortogonale, det&#8202;A=&minus;1, autovalori +1 e &minus;1.</b> Per il teorema di classificazione delle isometrie del piano, le riflessioni sono le isometrie lineari con det=&minus;1: Av=v sul direttore, An=&minus;n sulla normale, e A&sup2;=I (involuzione). Le rotazioni hanno invece det=+1.'
+    }]
+  },
+
+  { pool:'simmetrici', src:'b02 scritto-2017-02-07 Es.3 · affinit&agrave; e test isometria',
+    steps:[{
+      t:'Un&rsquo;affinit&agrave; f(X)=AX+b del piano &egrave; determinata da 3 coppie punto-immagine. Quando f &egrave; un&rsquo;ISOMETRIA?',
+      opts:[{x:'quando A &egrave; ortogonale (A<sup>T</sup>A=I)',c:true},{x:'quando b=0'},{x:'quando det&#8202;A=1'},{x:'sempre'}],
+      hint:'f isometria &hArr; conserva le distanze &hArr; la parte lineare A &egrave; ortogonale. La traslazione b non influisce sulle distanze.',
+      sol:'<b>Quando A<sup>T</sup>A=I.</b> Per il teorema di caratterizzazione delle isometrie affini, f conserva le distanze &hArr; la sua parte lineare A &egrave; ortogonale: d(f(P),f(Q))=&#8741;A(P&minus;Q)&#8741;=&#8741;P&minus;Q&#8741; &forall;P,Q. Il vettore b (traslazione) preserva sempre le distanze; det&#8202;A=&plusmn;1 &egrave; necessario ma non sufficiente.'
+    }]
+  },
+
+  { pool:'simmetrici', src:'b03 scritto-2017-06-30 Es.3 · affinit&agrave; e incidenza',
+    steps:[{
+      t:'Tre rette L&#8321;,L&#8322;,L&#8323; di &#8477;&sup2; sono concorrenti (un punto comune); M&#8321;,M&#8322;,M&#8323; NON lo sono. Esiste un&rsquo;affinit&agrave; &phi; con &phi;(L&#8342;)=M&#8342;?',
+      opts:[{x:'No: un&rsquo;affinit&agrave; conserva l&rsquo;incidenza, non pu&ograve; separare rette concorrenti',c:true},{x:'S&igrave;: le affinit&agrave; sono sempre libere'},{x:'S&igrave;: basta scegliere A invertibile'},{x:'Dipende dagli angoli'}],
+      hint:'Le affinit&agrave; mandano rette in rette e conservano le intersezioni: L&#8321;&#8745;L&#8322;&#8745;L&#8323;={P} andrebbe in {&phi;(P)}.',
+      sol:'<b>No.</b> Un&rsquo;affinit&agrave; &egrave; una biiezione che conserva l&rsquo;incidenza (teorema fondamentale della geometria affine): se le L&#8342; hanno un punto comune P, le immagini &phi;(L&#8342;) condividono &phi;(P). Ma le M&#8342; non sono concorrenti: contraddizione. L&rsquo;incidenza &egrave; un invariante affine.'
+    }]
+  },
+
+  { pool:'simmetrici', src:'b01 · rotazione di angolo &theta;',
+    steps:[{
+      t:'La rotazione di angolo &theta; attorno all&rsquo;origine in &#8477;&sup2; ha matrice:',
+      opts:[{x:''+M([['cos&theta;','&minus;sin&theta;'],['sin&theta;','cos&theta;']]),c:true},{x:''+M([['cos&theta;','sin&theta;'],['sin&theta;','cos&theta;']])},{x:''+M([['sin&theta;','cos&theta;'],['cos&theta;','&minus;sin&theta;']])},{x:''+M([['cos&theta;','&minus;sin&theta;'],['&minus;sin&theta;','cos&theta;']])}],
+      hint:'Le colonne sono le immagini di e&#8321; ed e&#8322;: R(e&#8321;)=(cos&theta;,sin&theta;), R(e&#8322;)=(&minus;sin&theta;,cos&theta;).',
+      sol:'<b>'+M([['cos&theta;','&minus;sin&theta;'],['sin&theta;','cos&theta;']])+'.</b> &Egrave; ortogonale con det=cos&sup2;&theta;+sin&sup2;&theta;=1: per il teorema di classificazione delle isometrie piane &egrave; una rotazione. Autovalori e^{&plusmn;i&theta;}, reali solo per &theta;=0 (I) o &theta;=&pi; (&minus;I); la variante simmetrica con +sin&theta; sarebbe una riflessione (det=&minus;1).'
+    }]
+  },
+
+  { pool:'simmetrici', src:'b03 secondoesosol Q9 · matrice simmetrica solo in basi ortonormali',
+    steps:[{
+      t:'Un operatore autoaggiunto (simmetrico) T ha matrice simmetrica in una base B. Cosa garantisce la simmetria della matrice?',
+      opts:[{x:'che B sia ORTONORMALE rispetto al prodotto scalare',c:true},{x:'che B sia una qualsiasi base'},{x:'che T sia invertibile'},{x:'che det&#8202;T&gt;0'}],
+      hint:'La matrice di un operatore autoaggiunto &egrave; simmetrica SOLO in basi ortonormali; in una base generica pu&ograve; non esserlo.',
+      sol:'<b>B ortonormale.</b> Per il teorema di rappresentazione dell&rsquo;operatore autoaggiunto, la corrispondenza T autoaggiunto &hArr; matrice simmetrica vale nelle basi ortonormali. In una base qualsiasi la matrice di T pu&ograve; non essere simmetrica pur essendo T autoaggiunto (entra la matrice del prodotto scalare, non pi&ugrave; l&rsquo;identit&agrave;).'
+    }]
   }
 
 ];
@@ -2184,6 +2804,200 @@ Q.e3 = [
       ],
       hint:'La retta giace in entrambi i piani &rArr; il direttore &egrave; ortogonale a ENTRAMBE le normali: v=n&#8321;&times;n&#8322;.',
       sol:'v=n&#8321;&times;n&#8322;=(1,1,1)&times;(1,&minus;1,0)=(1,1,&minus;2). &Egrave; ortogonale sia a n&#8321;=(1,1,1) sia a n&#8322;=(1,&minus;1,0), quindi parallelo alla retta.'
+    }]
+  },
+
+  { pool:'e3', src:'Compito 02_02_2016 Es. 4 · distanza punto-retta',
+    steps:[{
+      t:'La distanza del punto P dalla retta r (punto Q, direttore v) &egrave; data da:',
+      opts:[{x:'&#8741;(P&minus;Q)&times;v&#8741; / &#8741;v&#8741;',c:true},{x:'&#8741;P&minus;Q&#8741;'},{x:'|(P&minus;Q)&middot;v| / &#8741;v&#8741;'},{x:'&#8741;(P&minus;Q)&times;v&#8741;'}],
+      hint:'&Egrave; l&rsquo;altezza del parallelogramma di lati (P&minus;Q) e v: area diviso base. L&rsquo;area &egrave; la norma del prodotto vettoriale.',
+      sol:'<b>&#8741;(P&minus;Q)&times;v&#8741; / &#8741;v&#8741;.</b> Numeratore = area del parallelogramma su (P&minus;Q) e v; dividendo per la base &#8741;v&#8741; si ottiene l&rsquo;altezza = distanza. La formula col prodotto SCALARE d&agrave; invece la proiezione lungo r, non la distanza.'
+    }]
+  },
+
+  { pool:'e3', src:'25sett_soluz Es. 3 · quattro punti e area',
+    steps:[{
+      t:'Dati A,B,C,D&isin;&#8477;&#179;, come si verifica che sono complanari e come si calcola l&rsquo;area del parallelogramma di lati AB e AC?',
+      opts:[{x:'Complanari &hArr; det[B&minus;A, C&minus;A, D&minus;A]=0; area = &#8741;(B&minus;A)&times;(C&minus;A)&#8741;',c:true},{x:'Complanari &hArr; (B&minus;A)&middot;(C&minus;A)=0; area = &frac12; base&times;altezza'},{x:'Sempre complanari; area = &#8741;B&minus;A&#8741;&middot;&#8741;C&minus;A&#8741;'},{x:'Complanari &hArr; A+B+C+D=0'}],
+      hint:'Complanarit&agrave; = i tre vettori B&minus;A, C&minus;A, D&minus;A stanno in un piano &hArr; prodotto misto (determinante) nullo. L&rsquo;area di un parallelogramma &egrave; la norma del prodotto vettoriale dei lati.',
+      sol:'<b>det[B&minus;A,C&minus;A,D&minus;A]=0 e area=&#8741;(B&minus;A)&times;(C&minus;A)&#8741;.</b> Prodotto misto nullo &hArr; i quattro punti sul medesimo piano. Il modulo del prodotto vettoriale di due lati adiacenti d&agrave; l&rsquo;area; il prodotto scalare misurerebbe invece l&rsquo;ortogonalit&agrave; dei lati.'
+    }]
+  },
+
+  { pool:'e3', src:'15febbraiosoluz Es. 4 · posizione retta-piano',
+    steps:[{
+      t:'La retta r ha direttore v e passa per Q; il piano &alpha; ha normale n. Quando r &egrave; PARALLELA ad &alpha; (e non contenuta)?',
+      opts:[{x:'v&middot;n=0 e Q&notin;&alpha;',c:true},{x:'v&times;n=0'},{x:'v&middot;n&ne;0'},{x:'v=n'}],
+      hint:'r parallela al piano &hArr; il direttore &egrave; ortogonale alla normale (v&middot;n=0). Per NON essere contenuta serve che un punto di r non stia in &alpha;.',
+      sol:'<b>v&middot;n=0 e Q&notin;&alpha;.</b> v&middot;n=0 dice che r non "buca" il piano (parallela o contenuta). Se inoltre Q&notin;&alpha; &egrave; parallela e distinta; se Q&isin;&alpha; &egrave; contenuta. Invece v&#8741;n (v&times;n=0) &egrave; r perpendicolare al piano, e v&middot;n&ne;0 &egrave; r incidente.'
+    }]
+  },
+
+  { pool:'e3', src:'b03 secondoesosol Q1 · distanza tra rette sghembe',
+    steps:[{
+      t:'Due rette r, s di &#8477;&sup3; non sono parallele e non si intersecano (sghembe). Come se ne calcola la distanza?',
+      opts:[{x:'d = |(P&minus;Q)&middot;(v&times;w)| / &#8741;v&times;w&#8741;, con v,w direttori, P&isin;r, Q&isin;s',c:true},{x:'d = &#8741;P&minus;Q&#8741;'},{x:'d = |v&middot;w|'},{x:'d = 0'}],
+      hint:'La distanza tra rette sghembe &egrave; la proiezione di P&minus;Q sulla direzione comune ortogonale v&times;w.',
+      sol:'<b>d=|(P&minus;Q)&middot;(v&times;w)|/&#8741;v&times;w&#8741;.</b> Per la formula del prodotto misto, il numeratore &egrave; il volume del parallelepipedo su P&minus;Q, v, w; diviso l&rsquo;area di base &#8741;v&times;w&#8741; d&agrave; l&rsquo;altezza, cio&egrave; la distanza. Se le rette fossero incidenti il prodotto misto sarebbe 0 (complanarit&agrave;).'
+    }]
+  },
+
+  { pool:'e3', src:'b03 secondoesosol Q2 · fascio di piani',
+    steps:[{
+      t:'Tre piani di &#8477;&sup3; appartengono allo STESSO FASCIO proprio quando:',
+      opts:[{x:'le loro equazioni sono linearmente dipendenti e i piani hanno una retta comune',c:true},{x:'sono a due a due perpendicolari'},{x:'hanno lo stesso vettore normale'},{x:'non si intersecano mai'}],
+      hint:'Un fascio proprio &egrave; l&rsquo;insieme dei piani contenenti una retta fissa: le equazioni sono combinazioni lineari di due di esse.',
+      sol:'<b>Quando un&rsquo;equazione &egrave; combinazione lineare delle altre due e i piani condividono una retta (l&rsquo;asse del fascio).</b> Per il teorema di Rouch&eacute;&ndash;Capelli il sistema delle tre equazioni ha rango 2 e soluzioni &infin;&sup1; (la retta comune). La perpendicolarit&agrave; a due a due si verifica coi prodotti scalari dei normali, ed &egrave; indipendente dall&rsquo;appartenenza al fascio.'
+    }]
+  },
+
+  { pool:'e3', src:'b03 straordinario-2018-nov-06 Es.4 · proiezione ortogonale su piano',
+    steps:[{
+      t:'Il piano &Pi; passa per C ed &egrave; perpendicolare alla retta di direttore v. La proiezione ortogonale &pi;(x) su &Pi; &egrave;:',
+      opts:[{x:'&pi;(x)=x &minus; [(x&minus;C)&middot;v / v&middot;v]&#8202;v',c:true},{x:'&pi;(x)=x+v'},{x:'&pi;(x)=(x&middot;v)&#8202;v'},{x:'&pi;(x)=C'}],
+      hint:'Si sottrae ad x la sua componente lungo la normale v del piano, misurata a partire da C.',
+      sol:'<b>&pi;(x)=x&minus;[((x&minus;C)&middot;v)/(v&middot;v)]&#8202;v.</b> Per il teorema della proiezione ortogonale si rimuove la componente di x&minus;C lungo la normale v; il punto risultante sta su &Pi; (verifica: (&pi;(x)&minus;C)&middot;v=0). &Egrave; un&rsquo;applicazione affine, non lineare, per C&ne;0.'
+    }]
+  },
+
+  { pool:'e3', src:'b03 scritto-2018-07-09 Es.1 / b01 · retta incidente due rette',
+    steps:[{
+      t:'Per trovare la retta passante per P&#8320; e incidente sia r&#8321; sia r&#8322; (sghembe), la strategia &egrave;:',
+      opts:[{x:'intersecare il piano &alpha;&#8321;=Span(r&#8321;,P&#8320;) col piano &alpha;&#8322;=Span(r&#8322;,P&#8320;)',c:true},{x:'unire i direttori di r&#8321; e r&#8322;'},{x:'prendere la parallela media'},{x:'calcolare P&#8320;&minus;r&#8321;'}],
+      hint:'La retta cercata sta nel piano che contiene r&#8321; e P&#8320;, e anche nel piano che contiene r&#8322; e P&#8320;: &egrave; la loro intersezione.',
+      sol:'<b>Si intersecano i piani &alpha;&#8321; (per r&#8321; e P&#8320;) e &alpha;&#8322; (per r&#8322; e P&#8320;).</b> Due piani distinti non paralleli si tagliano in una retta (Rouch&eacute;&ndash;Capelli, rango 2 in &#8477;&sup3;): entrambi contengono P&#8320;, quindi &alpha;&#8321;&#8745;&alpha;&#8322; passa per P&#8320; ed &egrave; incidente r&#8321; (giace in &alpha;&#8321;) e r&#8322; (giace in &alpha;&#8322;).'
+    }]
+  },
+
+  { pool:'e3', src:'b01 · volume del parallelepipedo',
+    steps:[{
+      t:'Il volume del parallelepipedo di lati u, v, w in &#8477;&sup3; &egrave;:',
+      opts:[{x:'|u&middot;(v&times;w)| (modulo del prodotto misto)',c:true},{x:'&#8741;u&#8741;&middot;&#8741;v&#8741;&middot;&#8741;w&#8741;'},{x:'u&middot;(v&times;w) senza modulo'},{x:'&#8741;u&times;v&times;w&#8741;'}],
+      hint:'Volume = area di base &#8741;v&times;w&#8741; per l&rsquo;altezza; equivale al valore assoluto del determinante 3&times;3 delle componenti.',
+      sol:'<b>|u&middot;(v&times;w)| = |det[u&#8202;v&#8202;w]|.</b> Per il teorema del prodotto misto, questo &egrave; il volume (con segno) del parallelepipedo; il volume geometrico ne &egrave; il valore assoluto. &Egrave; nullo &hArr; u,v,w sono complanari (det=0, colonne dipendenti).'
+    }]
+  },
+
+  { pool:'e3', src:'b01 · due rette complanari &rarr; piano comune',
+    steps:[{
+      t:'Due rette r, s di &#8477;&sup3; sono complanari (parallele o incidenti). Come si ottiene il piano che le contiene entrambe?',
+      opts:[{x:'normale n=v&times;w (v,w direttori) se incidenti, oppure n=v&times;(P&minus;Q) se parallele',c:true},{x:'non esiste mai'},{x:'come r&#8745;s'},{x:'sommando le equazioni'}],
+      hint:'Il piano comune ha normale ortogonale a entrambe le direzioni (o alla direzione e al segmento che unisce due punti, se parallele).',
+      sol:'<b>Se incidenti: n=v&times;w e piano per il punto d&rsquo;intersezione. Se parallele: n=v&times;(P&minus;Q) con P&isin;r, Q&isin;s.</b> La condizione di complanarit&agrave; (prodotto misto [v,w,P&minus;Q]=0) garantisce, per il teorema del prodotto misto, che un tale piano esista e contenga entrambe le rette.'
+    }]
+  }
+
+];
+
+/* ---------- POOL 11 : DETERMINANTI (proprieta) ---------- */
+Q.determinanti = [
+
+  { pool:'determinanti', src:'b01 · det(&lambda;A)=&lambda;&#8319;det A',
+    steps:[{
+      t:'Sia A &isin; M&#8323;(&#8477;) con det&#8202;A = 5. Quanto vale det(2A)?',
+      opts:[{x:'40',c:true},{x:'10'},{x:'20'},{x:'80'}],
+      hint:'det(&lambda;A)=&lambda;&#8319;det&#8202;A con n = ordine della matrice, NON &lambda;&middot;det&#8202;A.',
+      sol:'<b>40.</b> det(&lambda;A)=&lambda;&#8319;det&#8202;A; qui n=3 e &lambda;=2, quindi 2&sup3;&middot;5=40. Moltiplicare l&rsquo;intera matrice per &lambda; scala ciascuna delle n righe, da cui il fattore &lambda;&#8319;.'
+    }]
+  },
+
+  { pool:'determinanti', src:'b01 · det antisimmetrica di ordine dispari',
+    steps:[{
+      t:'A &isin; M&#8323;(&#8477;) &egrave; antisimmetrica (A<sup>T</sup>=&minus;A). Quanto vale det&#8202;A?',
+      opts:[{x:'0',c:true},{x:'1'},{x:'&plusmn;1'},{x:'non determinabile'}],
+      hint:'Usa det&#8202;A<sup>T</sup>=det&#8202;A insieme a det(&minus;A)=(&minus;1)&#8319;det&#8202;A, con n dispari.',
+      sol:'<b>0.</b> det&#8202;A=det&#8202;A<sup>T</sup>=det(&minus;A)=(&minus;1)&sup3;det&#8202;A=&minus;det&#8202;A, quindi 2&#8202;det&#8202;A=0. Vale per ogni matrice antisimmetrica di ordine dispari.'
+    }]
+  },
+
+  { pool:'determinanti', src:'b01 · det(A<sup>T</sup>)=det A',
+    steps:[{
+      t:'Come sono legati det&#8202;A e det&#8202;A<sup>T</sup> per A quadrata?',
+      opts:[{x:'det&#8202;A<sup>T</sup>=det&#8202;A',c:true},{x:'det&#8202;A<sup>T</sup>=&minus;det&#8202;A'},{x:'det&#8202;A<sup>T</sup>=1/det&#8202;A'},{x:'dipende dalla matrice'}],
+      hint:'Lo sviluppo di Laplace per righe di A coincide con quello per colonne di A<sup>T</sup>.',
+      sol:'<b>det&#8202;A<sup>T</sup>=det&#8202;A</b> sempre. Trasporre scambia righe e colonne, che il determinante tratta simmetricamente. Conseguenza: ogni propriet&agrave; sulle righe vale identica sulle colonne.'
+    }]
+  },
+
+  { pool:'determinanti', src:'b01 · Binet e controesempio su det(A+B)',
+    steps:[{
+      t:'Per A,B &isin; M&#8322;(&#8477;), quale identit&agrave; &egrave; SEMPRE vera?',
+      opts:[{x:'det(AB)=det&#8202;A&middot;det&#8202;B',c:true},{x:'det(A+B)=det&#8202;A+det&#8202;B'},{x:'det(AB)=det&#8202;A+det&#8202;B'},{x:'det(A+B)=det&#8202;A&middot;det&#8202;B'}],
+      hint:'Il determinante &egrave; moltiplicativo sul PRODOTTO (Binet), non additivo sulla somma.',
+      sol:'<b>det(AB)=det&#8202;A&middot;det&#8202;B</b> (teorema di Binet). L&rsquo;additivit&agrave; &egrave; falsa: A=I, B=&minus;I danno det&#8202;A+det&#8202;B=2 ma det(A+B)=det(0)=0.'
+    }]
+  },
+
+  { pool:'determinanti', src:'b01 · AA<sup>T</sup>=I &rArr; det=&plusmn;1',
+    steps:[{
+      t:'Se A &isin; M&#8319;(&#8477;) soddisfa AA<sup>T</sup>=I (A ortogonale), quali valori pu&ograve; assumere det&#8202;A?',
+      opts:[{x:'+1 oppure &minus;1',c:true},{x:'solo +1'},{x:'qualsiasi reale'},{x:'0'}],
+      hint:'Applica Binet e det&#8202;A<sup>T</sup>=det&#8202;A alla relazione AA<sup>T</sup>=I.',
+      sol:'<b>&plusmn;1.</b> Da AA<sup>T</sup>=I: det&#8202;A&middot;det&#8202;A<sup>T</sup>=(det&#8202;A)&sup2;=det&#8202;I=1, quindi det&#8202;A=&plusmn;1. Non necessariamente +1: le riflessioni hanno det=&minus;1.'
+    }]
+  },
+
+  { pool:'determinanti', src:'b01 · scambio di righe cambia segno',
+    steps:[{
+      t:'B si ottiene da A &isin; M&#8323;(&#8477;) scambiando due righe. Se det&#8202;A=7, quanto vale det&#8202;B?',
+      opts:[{x:'&minus;7',c:true},{x:'7'},{x:'0'},{x:'14'}],
+      hint:'Uno scambio di due righe (o due colonne) moltiplica il determinante per &minus;1.',
+      sol:'<b>&minus;7.</b> Il determinante &egrave; una funzione alternante delle righe: ogni trasposizione di due righe ne cambia il segno.'
+    }]
+  },
+
+  { pool:'determinanti', src:'b02 sol-scritto-2017-02-07 Es.2 · operazione elementare',
+    steps:[{
+      t:'Alla seconda riga di A si somma 3 volte la prima riga. Come cambia det&#8202;A?',
+      opts:[{x:'resta invariato',c:true},{x:'si triplica'},{x:'cambia segno'},{x:'aumenta di 3'}],
+      hint:'L&rsquo;operazione riga&#8342; &rarr; riga&#8342; + &lambda;&middot;riga&#8343; (con i&ne;j) NON altera il determinante.',
+      sol:'<b>Invariato.</b> Per multilinearit&agrave; e alternanza il contributo aggiuntivo &egrave; un determinante con due righe uguali, dunque nullo. Solo lo scambio (segno) e la moltiplicazione di una riga per &lambda; (fattore &lambda;) modificano det.'
+    }]
+  },
+
+  { pool:'determinanti', src:'b02 sol-scritto-2017-02-07 Es.2 · sequenza di operazioni',
+    steps:[{
+      t:'det&#8202;A=5 (A di ordine 3). B si ottiene scambiando due colonne di A e poi moltiplicando una riga per 4. Quanto vale det&#8202;B?',
+      opts:[{x:'&minus;20',c:true},{x:'20'},{x:'60'},{x:'&minus;60'}],
+      hint:'Scambio di colonne &rarr; fattore &minus;1; moltiplicazione di una riga per 4 &rarr; fattore 4. Componi i fattori su det&#8202;A.',
+      sol:'<b>&minus;20.</b> Scambio colonne: 5 &rarr; &minus;5. Riga per 4: &minus;5 &rarr; &minus;20. Le operazioni elementari agiscono moltiplicativamente sul determinante.'
+    }]
+  },
+
+  { pool:'determinanti', src:'b01 · det di matrice triangolare',
+    steps:[{
+      t:'Per A triangolare (superiore o inferiore), det&#8202;A vale:',
+      opts:[{x:'il prodotto degli elementi diagonali',c:true},{x:'la somma della diagonale'},{x:'il prodotto degli elementi fuori diagonale'},{x:'sempre 0'}],
+      hint:'Lo sviluppo di Laplace lungo la prima colonna lascia solo il contributo diagonale.',
+      sol:'<b>Il prodotto degli elementi diagonali.</b> Per una triangolare gli autovalori SONO gli elementi diagonali e det = prodotto degli autovalori. La somma della diagonale &egrave; invece la traccia.'
+    }]
+  },
+
+  { pool:'determinanti', src:'b01 · det=0 e dipendenza delle colonne',
+    steps:[{
+      t:'Per A &isin; M&#8319;(&#8477;), la condizione det&#8202;A=0 equivale a:',
+      opts:[{x:'le colonne di A sono linearmente dipendenti',c:true},{x:'A &egrave; antisimmetrica'},{x:'A ha una riga nulla'},{x:'A non &egrave; quadrata'}],
+      hint:'det&#8202;A=0 &hArr; A non invertibile &hArr; rk&#8202;A &lt; n &hArr; colonne dipendenti.',
+      sol:'<b>Colonne linearmente dipendenti.</b> det&#8202;A=0 &hArr; rk&#8202;A&lt;n &hArr; ker&#8202;A&ne;{0} &hArr; A singolare. Una riga nulla &egrave; solo un caso particolare, non l&rsquo;equivalenza.'
+    }]
+  },
+
+  { pool:'determinanti', src:'b01 · det(A&#8315;&sup1;)=1/det A',
+    steps:[{
+      t:'Se A &egrave; invertibile con det&#8202;A=&minus;3, quanto vale det(A&#8315;&sup1;)?',
+      opts:[{x:'&minus;1/3',c:true},{x:'3'},{x:'1/3'},{x:'&minus;3'}],
+      hint:'Da AA&#8315;&sup1;=I e Binet: det&#8202;A&middot;det(A&#8315;&sup1;)=1.',
+      sol:'<b>&minus;1/3.</b> Binet su AA&#8315;&sup1;=I d&agrave; det(A&#8315;&sup1;)=1/det&#8202;A. Il segno si conserva: 1/(&minus;3)=&minus;1/3.'
+    }]
+  },
+
+  { pool:'determinanti', src:'b01 · permutazione ciclica di righe',
+    steps:[{
+      t:'In una matrice 3&times;3 le righe vengono permutate ciclicamente R&#8321;&rarr;R&#8322;&rarr;R&#8323;&rarr;R&#8321;. Se det=6, il nuovo determinante vale:',
+      opts:[{x:'6',c:true},{x:'&minus;6'},{x:'18'},{x:'2'}],
+      hint:'Il ciclo (1&#8202;2&#8202;3) si scrive come due trasposizioni: permutazione PARI, segno (&minus;1)&sup2;=+1.',
+      sol:'<b>6.</b> Una permutazione ciclica di 3 righe &egrave; pari (due scambi), quindi il determinante resta invariato. Cambierebbe segno solo con un numero DISPARI di scambi.'
     }]
   }
 
