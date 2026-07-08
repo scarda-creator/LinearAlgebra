@@ -720,6 +720,89 @@ Q.diag = [
       hint:'Gli autovalori di F&sup3;&minus;4F sono &mu;&sup3;&minus;4&mu;. Invertibile &hArr; nessuno &egrave; 0 &hArr; nessun &mu; annulla t(t&minus;2)(t+2).',
       sol:'<b>No.</b> Per il teorema di mapping spettrale (autovalori di p(F) = p(&lambda;)): F&sup3;&minus;4F=F(F&sup2;&minus;4I) ha autovalori &mu;&sup3;&minus;4&mu; per &mu;&isin;{0,1,&minus;1}, cio&egrave; 0,&minus;3,3. Poich&eacute; 0 compare (da &mu;=0), F&sup3;&minus;4F ha nucleo non banale: NON invertibile.'
     }]
+  },
+
+  { pool:'diag', src:'modus operandi · sequenza di controllo',
+    steps:[{
+      t:'Per stabilire se una matrice A (n&times;n, su &#8450;) &egrave; diagonalizzabile, qual &egrave; la sequenza corretta di passi?',
+      opts:[{x:'Polinomio caratteristico &rarr; autovalori con m.a. &rarr; per ogni &lambda; ripetuto calcolo m.g.=n&minus;rk(A&minus;&lambda;I) &rarr; diagonalizzabile &hArr; m.g.=m.a. su ogni &lambda;',c:true},{x:'Calcolo det&#8202;A: se &ne;0 allora &egrave; diagonalizzabile'},{x:'Trovo gli autovettori e controllo che siano ortogonali'},{x:'Verifico solo che la somma delle m.a. sia n'}],
+      hint:'La diagonalizzabilit&agrave; si gioca sul confronto m.a. vs m.g. per OGNI autovalore, non sul determinante n&eacute; sull&rsquo;ortogonalit&agrave;.',
+      sol:'<b>Polinomio caratteristico &rarr; m.a. &rarr; m.g. &rarr; confronto.</b> Per il criterio di diagonalizzabilit&agrave; (m.a.=m.g. per ogni &lambda;) l&rsquo;unico controllo decisivo &egrave; il confronto delle molteplicit&agrave;. Il determinante non c&rsquo;entra (0 pu&ograve; essere autovalore di una diagonalizzabile); l&rsquo;ortogonalit&agrave; degli autovettori riguarda il teorema spettrale, non la sola diagonalizzabilit&agrave;; la somma delle m.a. &egrave; sempre n su &#8450; (teorema fondamentale dell&rsquo;algebra) e non discrimina nulla.'
+    }]
+  },
+
+  { pool:'diag', src:'modus operandi · il controllo decisivo su m.a.=2',
+    steps:[{
+      t:'Calcolando il polinomio caratteristico trovi un autovalore &lambda; con molteplicit&agrave; algebrica 2. Qual &egrave; il controllo DECISIVO per la diagonalizzabilit&agrave; relativa a quel &lambda;?',
+      opts:[{x:'Calcolare m.g.(&lambda;)=n&minus;rk(A&minus;&lambda;I) e verificare se vale 2',c:true},{x:'Verificare che esista un secondo autovalore distinto'},{x:'Controllare che &lambda;&ne;0'},{x:'Controllare che A sia triangolare'}],
+      hint:'m.a.=2 da sola non decide nulla: serve la m.g. Il rischio &egrave; un blocco di Jordan con m.g.=1.',
+      sol:'<b>Calcolare m.g.(&lambda;)=n&minus;rk(A&minus;&lambda;I).</b> Per il criterio m.a.=m.g., su un autovalore con m.a.=2 la diagonalizzabilit&agrave; regge solo se m.g.=2. Se m.g.=1 esiste un blocco di Jordan J&#8322;(&lambda;) e A non &egrave; diagonalizzabile. L&rsquo;esistenza di altri autovalori o il valore di &lambda; sono irrilevanti per questo controllo.'
+    }]
+  },
+
+  { pool:'diag', src:'modus operandi · concludere senza calcolare gli autospazi',
+    steps:[{
+      t:'Hai una matrice A reale 4&times;4 e vuoi evitare di calcolare i quattro autospazi. Quale singola osservazione, se vera, ti fa concludere SUBITO che A &egrave; diagonalizzabile su &#8477;?',
+      opts:[{x:'Il polinomio caratteristico ha 4 radici reali DISTINTE',c:true},{x:'det&#8202;A&ne;0'},{x:'tr&#8202;A &egrave; uguale alla somma degli autovalori'},{x:'A ha almeno un autovalore con m.a.=1'}],
+      hint:'Autovalori tutti distinti &rArr; m.g.=m.a.=1 su ognuno, senza calcolare nulla. Le altre opzioni non implicano la diagonalizzabilit&agrave;.',
+      sol:'<b>4 radici reali distinte.</b> n autovalori distinti sono condizione SUFFICIENTE: ogni m.g. vale 1 come la m.a., quindi diagonalizzabile senza toccare gli autospazi. det&#8202;A&ne;0 dice solo che 0 non &egrave; autovalore; tr=somma degli autovalori &egrave; sempre vero e non discrimina; un solo autovalore semplice non dice nulla sugli altri tre. (Altre scorciatoie legittime: A reale simmetrica &rArr; spettrale; oppure polinomio minimo a radici semplici.)'
+    }]
+  },
+
+  { pool:'diag', src:'prova · parametro e &#8477; vs &#8450; (multi-step)',
+    steps:[
+      { t:'<span class="lbl">L1</span> Sia A(k)='+M([['1','k'],['1','1']])+' con k&isin;&#8477;. Quali sono i suoi autovalori?',
+        opts:[{x:'1&plusmn;&radic;k',c:true},{x:'1 e k'},{x:'k&plusmn;1'},{x:'&plusmn;&radic;k'}],
+        hint:'p(&lambda;)=(1&minus;&lambda;)&sup2;&minus;k. Risolvi (&lambda;&minus;1)&sup2;=k.',
+        sol:'<b>1&plusmn;&radic;k.</b> p(&lambda;)=(1&minus;&lambda;)&sup2;&minus;k=0 &rArr; (&lambda;&minus;1)&sup2;=k &rArr; &lambda;=1&plusmn;&radic;k.',
+        cont:'Continua &rarr; diagonalizzabilit&agrave; su &#8477;'
+      },
+      { t:'<span class="lbl">L2</span> Per quali k&isin;&#8477; la matrice A(k)='+M([['1','k'],['1','1']])+' &egrave; diagonalizzabile su &#8477;?',
+        opts:[{x:'Solo k&gt;0',c:true},{x:'Per ogni k'},{x:'Per ogni k&ge;0'},{x:'Solo k=0'}],
+        hint:'k&gt;0: due autovalori reali distinti. k=0: autovalore 1 doppio, ma A(0)='+M([['1','0'],['1','1']])+' &egrave; un blocco di Jordan. k&lt;0: &radic;k non &egrave; reale.',
+        sol:'<b>Solo k&gt;0.</b> Per k&gt;0 gli autovalori 1&plusmn;&radic;k sono reali distinti &rArr; diagonalizzabile. Per k=0, &lambda;=1 ha m.a.=2 ma A(0)&minus;I='+M([['0','0'],['1','0']])+' ha rango 1, m.g.=1&lt;2 (blocco di Jordan): non diagonalizzabile. Per k&lt;0 non ci sono autovalori reali.',
+        cont:'Continua &rarr; e su &#8450;?'
+      },
+      { t:'<span class="lbl">L3</span> Per k&lt;0, la stessa A(k) &egrave; diagonalizzabile su &#8450;?',
+        opts:[{x:'S&igrave;: 1&plusmn;i&radic;|k| sono due autovalori complessi distinti',c:true},{x:'No: gli autovalori non sono reali'},{x:'No: resta un blocco di Jordan'},{x:'Solo se |k|=1'}],
+        hint:'Su &#8450; l&rsquo;esistenza di due radici distinte basta, anche se immaginarie. Distinti &rArr; diagonalizzabile.',
+        sol:'<b>S&igrave;.</b> Per k&lt;0 vale &radic;k=i&radic;|k|, quindi gli autovalori 1&plusmn;i&radic;|k| sono complessi coniugati e DISTINTI. Autovalori distinti &rArr; diagonalizzabile su &#8450;. La non-realt&agrave; blocca solo la diagonalizzazione su &#8477;, non su &#8450;.'
+      }
+    ]
+  },
+
+  { pool:'diag', src:'polinomio minimo vs caratteristico (combinazione di criteri)',
+    steps:[{
+      t:'Un endomorfismo A di &#8477;&#8308; ha polinomio caratteristico (t&minus;1)&sup2;(t&minus;2)&sup2; e si sa che (A&minus;I)(A&minus;2I)=0. A &egrave; diagonalizzabile?',
+      opts:[{x:'S&igrave;: il polinomio minimo divide (t&minus;1)(t&minus;2), a radici semplici',c:true},{x:'No: il polinomio caratteristico ha due radici doppie'},{x:'Non si pu&ograve; decidere senza calcolare gli autospazi'},{x:'S&igrave;, ma solo su &#8450;'}],
+      hint:'(A&minus;I)(A&minus;2I)=0 significa che (t&minus;1)(t&minus;2) ANNULLA A: il polinomio minimo lo divide. Conta il minimo, non il caratteristico.',
+      sol:'<b>S&igrave;.</b> Criterio: A diagonalizzabile &hArr; il polinomio MINIMO ha tutte radici semplici. Da (A&minus;I)(A&minus;2I)=0 il minimo divide (t&minus;1)(t&minus;2), che ha radici semplici 1 e 2: quindi il minimo &egrave; esattamente (t&minus;1)(t&minus;2) e A &egrave; diagonalizzabile. Le molteplicit&agrave; doppie del polinomio CARATTERISTICO non contano: dicono solo che i due autospazi hanno dimensione 2 ciascuno.'
+    }]
+  },
+
+  { pool:'diag', src:'A diag &rArr; p(A) diag; la somma no (combinazione)',
+    steps:[{
+      t:'Sia A diagonalizzabile. Quale tra queste matrici potrebbe NON essere diagonalizzabile?',
+      opts:[{x:'A+B, con B un&rsquo;altra matrice diagonalizzabile qualsiasi',c:true},{x:'A&sup3;'},{x:'A<sup>T</sup>'},{x:'A&#8315;&sup1; (se A &egrave; invertibile)'}],
+      hint:'A diag &rArr; p(A) diag per ogni polinomio p (stessi autovettori); A<sup>T</sup> &egrave; simile ad A; ma la SOMMA di due diagonalizzabili pu&ograve; non esserlo.',
+      sol:'<b>A+B.</b> Se A=CDC&#8315;&sup1; allora A&sup3;=CD&sup3;C&#8315;&sup1; e A&#8315;&sup1;=CD&#8315;&sup1;C&#8315;&sup1; (stessi autovettori), mentre A<sup>T</sup> &egrave; simile ad A (stesso polinomio caratteristico e minimo): tutte diagonalizzabili. La somma no: A='+M([['1','1'],['0','&minus;1']])+' (autovalori 1,&minus;1) e B=diag(&minus;1,1) sono diagonalizzabili, ma A+B='+M([['0','1'],['0','0']])+' &egrave; un blocco di Jordan. L&rsquo;insieme dei diagonalizzabili NON &egrave; chiuso per somma (gli addendi non condividono gli autovettori).'
+    }]
+  },
+
+  { pool:'diag', src:'matrici simili e diagonalizzabilit&agrave; (multi-step)',
+    steps:[
+      { t:'<span class="lbl">L1</span> A e B sono simili (B=P&#8315;&sup1;AP) e A &egrave; diagonalizzabile. B &egrave; diagonalizzabile?',
+        opts:[{x:'S&igrave;: la diagonalizzabilit&agrave; &egrave; invariante per similitudine',c:true},{x:'No: cambiando base si perde la diagonalizzabilit&agrave;'},{x:'Solo se P &egrave; ortogonale'},{x:'Solo se A &egrave; simmetrica'}],
+        hint:'Se A=CDC&#8315;&sup1;, sostituisci: B=P&#8315;&sup1;CDC&#8315;&sup1;P=(P&#8315;&sup1;C)D(P&#8315;&sup1;C)&#8315;&sup1;. &Egrave; ancora una diagonalizzazione.',
+        sol:'<b>S&igrave;.</b> B=P&#8315;&sup1;AP=P&#8315;&sup1;CDC&#8315;&sup1;P=(P&#8315;&sup1;C)&#8202;D&#8202;(P&#8315;&sup1;C)&#8315;&sup1;: B &egrave; diagonalizzata da P&#8315;&sup1;C con la STESSA D. Matrici simili hanno gli stessi autovalori con le stesse m.a. e m.g., quindi sono diagonalizzabili o non lo sono insieme.',
+        cont:'Continua &rarr; il viceversa'
+      },
+      { t:'<span class="lbl">L2</span> A e B (3&times;3) hanno lo stesso polinomio caratteristico (t&minus;1)&sup3;. Sono necessariamente simili?',
+        opts:[{x:'No: I&#8323; e il blocco di Jordan J&#8323;(1) hanno lo stesso caratteristico ma non sono simili',c:true},{x:'S&igrave;: stesso polinomio caratteristico &rArr; simili'},{x:'S&igrave;: hanno gli stessi autovalori'},{x:'No: (t&minus;1)&sup3; non &egrave; realizzabile da alcuna matrice'}],
+        hint:'Lo stesso polinomio caratteristico NON basta per la similitudine: serve la stessa forma di Jordan (stesse m.g.). Confronta I&#8323; (diag.) con un blocco di Jordan.',
+        sol:'<b>No.</b> I&#8323; ha polinomio caratteristico (t&minus;1)&sup3; ed &egrave; diagonalizzabile (m.g.(1)=3); il blocco J&#8323;(1)='+M([['1','1','0'],['0','1','1'],['0','0','1']])+' ha lo stesso caratteristico ma m.g.(1)=1 e non &egrave; diagonalizzabile. Non possono essere simili, perch&eacute; la similitudine conserva la m.g. Lo stesso polinomio caratteristico &egrave; necessario ma non sufficiente per la similitudine.'
+      }
+    ]
   }
 
 ];
