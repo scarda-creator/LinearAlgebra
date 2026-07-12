@@ -515,6 +515,11 @@ function renderNav(active){
   var nav=document.getElementById('sidebar');
   nav.innerHTML='';
   var h=document.createElement('h2'); h.textContent='Percorso'; nav.appendChild(h);
+  var gate=document.createElement('button');
+  gate.className='navitem'+(active==='gate'?' active':'');
+  gate.innerHTML='<span class="dot"></span><span class="nx">⌂</span><span>Scegli modalità</span>';
+  gate.onclick=function(){ showGate(); };
+  nav.appendChild(gate);
   var home=document.createElement('button');
   home.className='navitem'+(active==='home'?' active':'');
   home.innerHTML='<span class="dot"></span><span class="nx">◆</span><span>Smistatore</span>';
@@ -565,6 +570,36 @@ function collaudoBlock(items){
     c.appendChild(q); typeset(q); c.appendChild(b); c.appendChild(a); wrap.appendChild(c);
   });
   return wrap;
+}
+
+function showGate(){
+  renderNav('gate');
+  var m=document.getElementById('main'); m.innerHTML='';
+  m.appendChild(elFromHTML('<div class="sfhead"><h1>Percorso saper-fare — Geometria</h1>'+
+    '<p class="sub">Algebra Lineare · Diverio · La Sapienza. Due modi di usarlo — scegli.</p></div>'));
+  var grid=document.createElement('div');
+  grid.style.cssText='display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-top:6px';
+  function card(icon,titolo,desc,cta,fn){
+    var b=document.createElement('button');
+    b.style.cssText='text-align:left;padding:24px;border:1px solid var(--line,#2a3550);border-radius:14px;'+
+      'background:var(--card,#141c30);color:inherit;cursor:pointer;transition:border-color .15s,transform .15s;'+
+      'display:flex;flex-direction:column;gap:10px;font:inherit';
+    b.onmouseover=function(){ b.style.borderColor='var(--accent,#5eead4)'; b.style.transform='translateY(-2px)'; };
+    b.onmouseout=function(){ b.style.borderColor='var(--line,#2a3550)'; b.style.transform='none'; };
+    b.innerHTML='<div style="font-size:1.7rem;line-height:1">'+icon+'</div>'+
+      '<h3 style="margin:0;font-size:1.2rem">'+titolo+'</h3>'+
+      '<p style="margin:0;font-size:.93rem;line-height:1.55;color:var(--muted,#93a1c0)">'+desc+'</p>'+
+      '<span style="margin-top:4px;font-weight:600;color:var(--accent,#5eead4)">'+cta+'</span>';
+    b.onclick=fn; return b;
+  }
+  grid.appendChild(card('◆','Smistatore',
+    'Parti da un esercizio: riconosci l’oggetto-spia e l’app ti manda al metodo giusto. Il «quale metodo» è metà della battaglia d’esame.',
+    'Entra nello smistatore →', function(){ showHome(); }));
+  grid.appendChild(card('▶','Percorso',
+    'Studia in ordine gli 11 saper-fare, dal motore (01–03) alla direzione attuale del corso (08–10). Impari il gesto, un tipo alla volta.',
+    'Inizia da 01 →', function(){ showSF('01'); }));
+  m.appendChild(grid);
+  window.scrollTo(0,0);
 }
 
 function showHome(){
@@ -633,7 +668,7 @@ function showSF(num){
   window.scrollTo(0,0);
 }
 
-window.addEventListener('DOMContentLoaded', showHome);
+window.addEventListener('DOMContentLoaded', showGate);
 </script>
 </body>
 </html>
